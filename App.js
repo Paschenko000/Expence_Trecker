@@ -10,6 +10,7 @@ import {Ionicons} from '@expo/vector-icons';
 import {BlurView} from "expo-blur";
 import {StyleSheet} from "react-native";
 import {IconButton} from "./ui/IconButton";
+import {ExpensesContext, ExpensesContextProvider} from "./store/expenses-context";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -66,31 +67,33 @@ export default function App() {
   return (
       <>
         <StatusBar style="light" />
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{
-              headerStyle: {
-                  backgroundColor: GlobalStyles.colors.lightGray,
-                  shadowColor: "transparent",
-              },
-              headerTintColor: GlobalStyles.colors.accent,
-              headerTitleStyle: {
-                  color: GlobalStyles.colors.white
-              },
+          <ExpensesContextProvider>
+            <NavigationContainer>
+              <Stack.Navigator screenOptions={{
+                  headerStyle: {
+                      backgroundColor: GlobalStyles.colors.lightGray,
+                      shadowColor: "transparent",
+                  },
+                  headerTintColor: GlobalStyles.colors.accent,
+                  headerTitleStyle: {
+                      color: GlobalStyles.colors.white
+                  },
 
-          }}>
-            <Stack.Screen
-                name="Expensesoverview"
-                component={ExpensesOverview}
-                options={{headerShown: false} }/>
-            <Stack.Screen
-                name="ManageExpense"
-                component={ManageExpense}
-                options={{
-                    headerBackTitle: "Back"
-                }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+              }}>
+                <Stack.Screen
+                    name="Expensesoverview"
+                    component={ExpensesOverview}
+                    options={{headerShown: false} }/>
+                <Stack.Screen
+                    name="ManageExpense"
+                    component={ManageExpense}
+                    options={{
+                        headerBackTitle: "Back"
+                    }}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </ExpensesContextProvider>
       </>
 
   );

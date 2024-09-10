@@ -4,91 +4,16 @@ import {StyleSheet} from "react-native";
 import {ExpenseItem} from "./ExpenseItem";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
 
-
-const DUMMY_EXPENSES = [
-    {
-        id: "e1",
-        description: "Some description",
-        amount: 44.25,
-        date: new Date("2024-04-03"),
-    },
-    {
-        id: "e2",
-        description: "Some description",
-        amount: 32.56,
-        date: new Date("2024-04-09"),
-    },
-    {
-        id: "e3",
-        description: "Some description",
-        amount: 12.99,
-        date: new Date("2024-04-10"),
-    },
-    {
-        id: "e4",
-        description: "Some description",
-        amount: 44.25,
-        date: new Date("2024-04-03"),
-    },
-    {
-        id: "e5",
-        description: "Some description",
-        amount: 32.56,
-        date: new Date("2024-04-09"),
-    },
-    {
-        id: "e6",
-        description: "Some description",
-        amount: 12.99,
-        date: new Date("2024-04-10"),
-    },
-    {
-        id: "e7",
-        description: "Some description",
-        amount: 44.25,
-        date: new Date("2024-04-03"),
-    },
-    {
-        id: "e8",
-        description: "Some description",
-        amount: 32.56,
-        date: new Date("2024-04-09"),
-    },
-    {
-        id: "e9",
-        description: "Some description",
-        amount: 12.99,
-        date: new Date("2024-04-10"),
-    },{
-        id: "e10",
-        description: "Some description",
-        amount: 44.25,
-        date: new Date("2024-04-03"),
-    },
-    {
-        id: "e11",
-        description: "Some description",
-        amount: 32.56,
-        date: new Date("2024-04-09"),
-    },
-    {
-        id: "e12",
-        description: "Some description",
-        amount: 12.99,
-        date: new Date("2024-04-10"),
-    },
-]
-
 function renderExpense(itemData) {
     return (
         <ExpenseItem {...itemData.item} />
     );
 }
 
-export function ExpensesOutput({expenses, expensesPeriod}) {
+export function ExpensesOutput({expenses, expensesPeriod, fallbackText}) {
     const bottomPadding = useBottomTabBarHeight();
 
-    const expensesSum = DUMMY_EXPENSES.reduce((sum, expense) => {
+    const expensesSum = expenses.reduce((sum, expense) => {
         return sum + expense.amount;
     }, 0);
 
@@ -99,8 +24,17 @@ export function ExpensesOutput({expenses, expensesPeriod}) {
                 <Text style={styles.sum}>{expensesSum.toFixed(2)}$</Text>
             </View>
 
-            <FlatList contentContainerStyle={{paddingBottom: bottomPadding}} data={DUMMY_EXPENSES} renderItem={renderExpense} keyExtractor={(item) => item.id}/>
-            
+            {expenses.length > 0 ? (
+                <FlatList
+                    contentContainerStyle={{paddingBottom: bottomPadding}}
+                    data={expenses} renderItem={renderExpense}
+                    keyExtractor={(item) => item.id}
+                />
+            ) : (
+                <Text style={[styles.fallbackText, {paddingBottom: bottomPadding}]}>{fallbackText}</Text>
+            )}
+
+
         </View>
     );
 }
@@ -130,5 +64,11 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
         color: GlobalStyles.colors.accent,
+    },
+    fallbackText: {
+        color: GlobalStyles.colors.accent,
+        fontSize: 18,
+        textAlign: "center",
+        marginVertical: "auto",
     },
 });
