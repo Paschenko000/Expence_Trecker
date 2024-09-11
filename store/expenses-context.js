@@ -5,68 +5,78 @@ const DUMMY_EXPENSES = [
         description: "Some description",
         amount: 44.25,
         date: new Date("2024-04-03"),
+        category: 12,
     },
     {
         id: "e2",
         description: "Some description",
         amount: 32.56,
         date: new Date("2024-04-09"),
+        category: 11,
     },
     {
         id: "e3",
         description: "Some description",
         amount: 12.99,
         date: new Date("2024-04-10"),
+        category: 9,
     },
     {
         id: "e4",
         description: "Some description",
         amount: 44.25,
         date: new Date("2024-04-03"),
+        category: 2,
     },
     {
         id: "e5",
         description: "Some description",
         amount: 32.56,
         date: new Date("2024-04-09"),
+        category: 2,
     },
     {
         id: "e6",
         description: "Some description",
         amount: 12.99,
         date: new Date("2024-04-10"),
+        category: 2,
     },
     {
         id: "e7",
         description: "Some description",
         amount: 44.25,
         date: new Date("2024-04-03"),
+        category: 9,
     },
     {
         id: "e9",
         description: "Some description",
         amount: 12.99,
         date: new Date("2024-04-10"),
+        category: 5,
     },{
         id: "e10",
         description: "Some description",
         amount: 44.25,
-        date: new Date("2024-09-03"),
+        date: new Date("12/09/2023"),
+        category: 9,
     },
     {
         id: "e11",
         description: "Some description",
         amount: 32.56,
         date: new Date("2024-09-05"),
+        category: 5,
     },
 
 ]
 
 export const ExpensesContext = createContext({
     expenses: [],
-    addExpense: ({description, amount, date}) => {},
+    addExpense: ({description, amount, date, category}) => {},
     deleteExpense: (id) => {},
-    updateExpense: (id, {description, amount, date}) => {},
+    updateExpense: (id, {description, amount, date, category}) => {},
 });
 
 function expensesReducer(state, action) {

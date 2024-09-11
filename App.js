@@ -11,6 +11,7 @@ import {BlurView} from "expo-blur";
 import {StyleSheet} from "react-native";
 import {IconButton} from "./ui/IconButton";
 import {ExpensesContext, ExpensesContextProvider} from "./store/expenses-context";
+import {CategoryExpenses} from "./screens/CategoryExpenses";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -19,7 +20,7 @@ function ExpensesOverview() {
   return (
       <BottomTabs.Navigator screenOptions={({navigation}) => ({
           headerStyle: {
-              backgroundColor: GlobalStyles.colors.lightGray,
+              backgroundColor: GlobalStyles.colors.gray,
               shadowColor: "transparent",
           },
           headerRight: () => <IconButton
@@ -71,7 +72,7 @@ export default function App() {
             <NavigationContainer>
               <Stack.Navigator screenOptions={{
                   headerStyle: {
-                      backgroundColor: GlobalStyles.colors.lightGray,
+                      backgroundColor: GlobalStyles.colors.gray,
                       shadowColor: "transparent",
                   },
                   headerTintColor: GlobalStyles.colors.accent,
@@ -91,6 +92,14 @@ export default function App() {
                         headerBackTitle: "Back"
                     }}
                 />
+                <Stack.Screen
+                    name="CategoryExpenses"
+                    component={CategoryExpenses}
+                    options={{
+                        headerBackTitle: "Back"
+                    }}
+                />
+
               </Stack.Navigator>
             </NavigationContainer>
           </ExpensesContextProvider>

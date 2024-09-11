@@ -1,12 +1,26 @@
 export const GlobalStyles = {
     colors : {
         black: "#000000",
-        lightGray: "#1C1B1D",
+        gray: "#1C1B1D",
+        lightGray: "#282828",
         accent: "#BAFC4F",
         white: "#ffffff",
+        darkBlue: "#3A83F6",
         blue: "#51B3F8",
+        azure: "#6CEACA",
+        darkGreen: "#60D158",
         green: "#C6FC50",
-        pink: "#E13552",
+        yellow: "#F6E653",
+        darkYellow: "#ffcd00",
+        beige: "#f39d5e",
+        orange: "#EE8246",
+        mandarin: "#ED6C59",
+        brightRed: "#E13552",
+        red: "#ec183e",
+        brightPink: "#EA4376",
+        pink: "#D08FDB",
+        purple: "#A78FE8",
+        darkPurple: "#7e5fd9",
     }
 
 }

@@ -1,21 +1,33 @@
-import {FlatList, Text, View} from "react-native";
-import {GlobalStyles} from "../../constants/styles";
-import {StyleSheet} from "react-native";
-import {ExpenseItem} from "./ExpenseItem";
+import {FlatList, StyleSheet, Text, View} from "react-native";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
+import {ExpenseItem} from "../ExpensesOutput/ExpenseItem";
+import {CategoryItem} from "./CategoryItem";
+import {GlobalStyles} from "../../constants/styles";
+import {ExpensesCategories} from "../../constants/expensesCategories";
 
 function renderExpense(itemData) {
     return (
-        <ExpenseItem {...itemData.item} />
+        <CategoryItem expenses={itemData.item} />
     );
 }
 
-export function ExpensesOutput({expenses, expensesPeriod, fallbackText}) {
-    // const bottomPadding = useBottomTabBarHeight();
+export function ExpensesCategory({expenses, expensesPeriod, fallbackText}) {
+    const bottomPadding = useBottomTabBarHeight();
 
     const expensesSum = expenses.reduce((sum, expense) => {
         return sum + expense.amount;
     }, 0);
+
+    const categoryExpenses = [];
+
+    for (let i = 1; i < ExpensesCategories.length; i++) {
+        const filteredExpenses = expenses.filter(expense => expense.category === i);
+        if (filteredExpenses.length > 0) {
+            categoryExpenses.push(filteredExpenses);
+        }
+    }
+
+    console.log(categoryExpenses);
 
     return (
         <View style={[styles.expensesContainer]}>
@@ -26,16 +38,15 @@ export function ExpensesOutput({expenses, expensesPeriod, fallbackText}) {
 
             {expenses.length > 0 ? (
                 <FlatList
-                    contentContainerStyle={{ margin: 4}}
-                    data={expenses}
+                    contentContainerStyle={{paddingBottom: bottomPadding}}
+                    data={categoryExpenses}
                     renderItem={renderExpense}
                     keyExtractor={(item) => item.id}
+                    numColumns={2}
                 />
             ) : (
-                <Text style={[styles.fallbackText]}>{fallbackText}</Text>
+                <Text style={[styles.fallbackText, {paddingBottom: bottomPadding}]}>{fallbackText}</Text>
             )}
-
-
         </View>
     );
 }
@@ -73,3 +84,4 @@ const styles = StyleSheet.create({
         marginVertical: "auto",
     },
 });
+
