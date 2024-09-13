@@ -3,6 +3,7 @@ export const GlobalStyles = {
         black: "#000000",
         gray: "#1C1B1D",
         lightGray: "#282828",
+        error: "#6e2f2f",
         accent: "#BAFC4F",
         white: "#ffffff",
         darkBlue: "#3A83F6",

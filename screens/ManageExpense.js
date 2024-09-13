@@ -1,6 +1,5 @@
 import {ScrollView, View} from "react-native";
 import {useContext, useLayoutEffect} from "react";
-import {IconButton} from "../ui/IconButton";
 import {GlobalStyles} from "../constants/styles";
 import {StyleSheet} from "react-native";
 import {Button} from "../ui/Button";
@@ -12,6 +11,8 @@ export function ManageExpense({route, navigation}) {
 
     const editedExpenseId = route.params?.expenseId;
     const isEditing = !!editedExpenseId;
+
+    const selectedExpense = expensesCtx.expenses.find(expense => expense.id === editedExpenseId);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -28,59 +29,56 @@ export function ManageExpense({route, navigation}) {
         navigation.goBack();
     }
 
-    function confirmHandler() {
+    function submitHandler(expenseData) {
         // TODO: Fix expense adding and updating
-        navigation.goBack();
+
         if (isEditing) {
             expensesCtx.updateExpense(
-                editedExpenseId,
-                {description: "add test", amount: 567, date: new Date()}
+                editedExpenseId, expenseData
             );
         } else {
             expensesCtx.addExpense(
-                {description: "test", amount: 123, date: new Date()}
+                expenseData
             );
         }
+        navigation.goBack();
     }
 
     return (
-        <ScrollView style={styles.container}>
-            <ExpenseForm/>
-            <View style={styles.buttonsContainer}>
-                <Button mode="flat" onPress={cancelHandler} style={styles.button}>Cancel</Button>
-                <Button  onPress={confirmHandler} style={styles.button}>{isEditing ? 'Update' : 'Add'}</Button>
-            </View>
+        <ScrollView style={{backgroundColor: GlobalStyles.colors.black,}}>
+            <View style={styles.container}>
+            <ExpenseForm
+                defaultValues={selectedExpense}
+                isEditing={isEditing}
+                onCancel={cancelHandler}
+                onSubmit={submitHandler}
+            />
 
             {isEditing &&
                 <View style={styles.deleteContainer}>
-                    <IconButton
-                        icon="trash"
-                        color={GlobalStyles.colors.pink}
-                        size={30}
-                        onPress={deleteExpenseHandler} />
+                    <Button
+                        mode="flat"
+                        color={GlobalStyles.colors.red}
+                        onPress={deleteExpenseHandler} >
+                        Delete
+                    </Button>
                 </View>
             }
+            </View>
         </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     deleteContainer: {
-
+        paddingBottom: 30,
+        paddingTop: 10,
+        borderTopWidth: 1,
+        borderColor: GlobalStyles.colors.lightGray,
     },
     container: {
         flex: 1,
         paddingHorizontal: 10,
-        backgroundColor: GlobalStyles.colors.black,
-    },
-    buttonsContainer: {
-        marginTop: 10,
-        marginBottom: 30,
-        flexDirection: "row",
-        justifyContent: "space-between",
-    },
-    button: {
-        minWidth: 80,
-        marginHorizontal: 5,
+
     }
 })

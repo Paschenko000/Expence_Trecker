@@ -20,14 +20,12 @@ export function ExpensesCategory({expenses, expensesPeriod, fallbackText}) {
 
     const categoryExpenses = [];
 
-    for (let i = 1; i < ExpensesCategories.length; i++) {
-        const filteredExpenses = expenses.filter(expense => expense.category === i);
+    for (const {id} of ExpensesCategories) {
+        const filteredExpenses = expenses.filter(expense => expense.category === id);
         if (filteredExpenses.length > 0) {
             categoryExpenses.push(filteredExpenses);
         }
     }
-
-    console.log(categoryExpenses);
 
     return (
         <View style={[styles.expensesContainer]}>

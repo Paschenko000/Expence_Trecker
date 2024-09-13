@@ -11,7 +11,7 @@ export function CategoryExpenses({route, navigation}) {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            title: ExpensesCategories[categoryId].name
+            title: ExpensesCategories[categoryId - 1].name
         });
     }, [navigation, categoryId]);
 

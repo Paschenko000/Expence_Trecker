@@ -96,7 +96,13 @@ export default function App() {
                     name="CategoryExpenses"
                     component={CategoryExpenses}
                     options={{
-                        headerBackTitle: "Back"
+                        headerBackTitle: "Back",
+                        // headerRight: () => <IconButton
+                        //     icon="add"
+                        //     size={30}
+                        //     color={GlobalStyles.colors.accent}
+                        //     onPress={() => navigation.navigate("ManageExpense")}
+                        // />
                     }}
                 />
 
