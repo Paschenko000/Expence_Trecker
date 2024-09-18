@@ -1,4 +1,4 @@
-import {Alert, FlatList, Pressable, ScrollView, Text, View, VirtualizedList} from "react-native";
+import {FlatList, KeyboardAvoidingView, Platform, SafeAreaView, Text, View} from "react-native";
 import {Input} from "./Input";
 import {StyleSheet} from "react-native";
 import {GlobalStyles} from "../../constants/styles";
@@ -6,6 +6,7 @@ import {ExpensesCategories} from "../../constants/expensesCategories";
 import {CategoryBtn} from "../../ui/CategoryBtn";
 import {useState} from "react";
 import {Button} from "../../ui/Button";
+import {SafeAreaConsumer} from "react-native-safe-area-context";
 
 export function ExpenseForm({onCancel, onSubmit, isEditing, defaultValues}) {
     const [inputs, setInputs] = useState({
@@ -92,19 +93,8 @@ export function ExpenseForm({onCancel, onSubmit, isEditing, defaultValues}) {
 
     return (
         <View style={styles.form}>
-            <View style={styles.categoriesContainer}>
-                <Text style={styles.title}>Select Category</Text>
-                <FlatList
-                    data={ExpensesCategories}
-                    renderItem={renderCategory}
-                    keyExtractor={item => item.id}
-                    numColumns={2}
-                    scrollEnabled={false}
-                />
-            </View>
 
             <Text style={styles.title}>Type Your Expense</Text>
-
             <View style={styles.inputsRow}>
                 <Input label="Amount" invalid={!inputs.amount.isValid} style={styles.rowInput} textInputConfig={{
                     keyboardType: 'decimal-pad',
@@ -127,11 +117,22 @@ export function ExpenseForm({onCancel, onSubmit, isEditing, defaultValues}) {
             {formIsInvalid &&
                 <Text style={styles.errorText}>Invalid input values - please check your entered data!</Text>
             }
+            <View style={styles.categoriesContainer}>
+                <Text style={styles.title}>Select Category</Text>
+                <FlatList
+                    data={ExpensesCategories}
+                    renderItem={renderCategory}
+                    keyExtractor={item => item.id}
+                    numColumns={2}
+                    scrollEnabled={false}
+                />
+            </View>
 
             <View style={styles.buttonsContainer}>
                 <Button mode="flat" color={GlobalStyles.colors.accent} onPress={onCancel} style={styles.button}>Cancel</Button>
                 <Button  color={GlobalStyles.colors.accent} onPress={submitHandler} style={styles.button}>{isEditing ? 'Update' : 'Add'}</Button>
             </View>
+
         </View>
     );
 }
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     categoriesContainer: {
-        marginBottom: 20,
+        marginTop: 20,
     },
     buttonsContainer: {
         marginTop: 10,

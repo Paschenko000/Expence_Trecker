@@ -5,6 +5,7 @@ import {StyleSheet} from "react-native";
 import {Button} from "../ui/Button";
 import {ExpensesContext} from "../store/expenses-context";
 import {ExpenseForm} from "../components/ManageExpense/ExpenseForm";
+import {KeyBoardAvoidingContainer} from "../components/KeybosrdAvodingContainer/KeyBoardAvoidingContainer";
 
 export function ManageExpense({route, navigation}) {
     const expensesCtx = useContext(ExpensesContext)
@@ -45,7 +46,7 @@ export function ManageExpense({route, navigation}) {
     }
 
     return (
-        <ScrollView style={{backgroundColor: GlobalStyles.colors.black,}}>
+        <KeyBoardAvoidingContainer>
             <View style={styles.container}>
             <ExpenseForm
                 defaultValues={selectedExpense}
@@ -65,7 +66,7 @@ export function ManageExpense({route, navigation}) {
                 </View>
             }
             </View>
-        </ScrollView>
+        </KeyBoardAvoidingContainer>
     );
 }
 
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
         borderColor: GlobalStyles.colors.lightGray,
     },
     container: {
+        backgroundColor: GlobalStyles.colors.black,
         flex: 1,
         paddingHorizontal: 10,
 
