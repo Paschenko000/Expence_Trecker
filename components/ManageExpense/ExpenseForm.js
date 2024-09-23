@@ -1,4 +1,4 @@
-import {FlatList, KeyboardAvoidingView, Platform, SafeAreaView, Text, View} from "react-native";
+import {FlatList, Text, View} from "react-native";
 import {Input} from "./Input";
 import {StyleSheet} from "react-native";
 import {GlobalStyles} from "../../constants/styles";
@@ -6,7 +6,6 @@ import {ExpensesCategories} from "../../constants/expensesCategories";
 import {CategoryBtn} from "../../ui/CategoryBtn";
 import {useState} from "react";
 import {Button} from "../../ui/Button";
-import {SafeAreaConsumer} from "react-native-safe-area-context";
 
 export function ExpenseForm({onCancel, onSubmit, isEditing, defaultValues}) {
     const [inputs, setInputs] = useState({

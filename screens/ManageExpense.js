@@ -1,13 +1,19 @@
 import {ScrollView, View} from "react-native";
-import {useContext, useLayoutEffect} from "react";
+import {useContext, useLayoutEffect, useState} from "react";
 import {GlobalStyles} from "../constants/styles";
 import {StyleSheet} from "react-native";
 import {Button} from "../ui/Button";
 import {ExpensesContext} from "../store/expenses-context";
 import {ExpenseForm} from "../components/ManageExpense/ExpenseForm";
 import {KeyBoardAvoidingContainer} from "../components/KeybosrdAvodingContainer/KeyBoardAvoidingContainer";
+import {deleteExpense, storeExpense, updateExpense} from "../utils/http";
+import {LoadingOverlay} from "../ui/LoadingOverlay";
+import {ErrorOverlay} from "../ui/ErrorOverlay";
 
 export function ManageExpense({route, navigation}) {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errorState, setErrorState] = useState();
+
     const expensesCtx = useContext(ExpensesContext)
 
     const editedExpenseId = route.params?.expenseId;
@@ -21,32 +27,56 @@ export function ManageExpense({route, navigation}) {
         });
     }, [navigation, isEditing]);
 
-    function deleteExpenseHandler() {
-        navigation.goBack();
-        expensesCtx.deleteExpense(editedExpenseId);
+    async function deleteExpenseHandler() {
+        setIsSubmitting(true);
+
+        try {
+            await deleteExpense(editedExpenseId);
+            navigation.goBack();
+            expensesCtx.deleteExpense(editedExpenseId);
+        } catch (error) {
+            setErrorState(error);
+            setIsSubmitting(false)
+        }
     }
 
     function cancelHandler() {
         navigation.goBack();
     }
 
-    function submitHandler(expenseData) {
-        // TODO: Fix expense adding and updating
-
-        if (isEditing) {
-            expensesCtx.updateExpense(
-                editedExpenseId, expenseData
-            );
-        } else {
-            expensesCtx.addExpense(
-                expenseData
-            );
+    async function submitHandler(expenseData) {
+        setIsSubmitting(true);
+        try {
+            if (isEditing) {
+                expensesCtx.updateExpense(
+                    editedExpenseId, expenseData
+                );
+                await updateExpense(editedExpenseId, expenseData);
+            } else {
+                const id = await storeExpense(expenseData);
+                expensesCtx.addExpense({...expenseData, id});
+            }
+            navigation.goBack();
+        } catch (error) {
+            setErrorState(error);
+            setIsSubmitting(false);
         }
-        navigation.goBack();
+
+
+    }
+
+
+    if (isSubmitting) {
+        return <LoadingOverlay/>;
+    }
+
+    if (errorState && !isSubmitting) {
+        return <ErrorOverlay message={errorState} />
     }
 
     return (
-        <KeyBoardAvoidingContainer>
+        // <KeyBoardAvoidingContainer>
+        <ScrollView style={{backgroundColor: GlobalStyles.colors.black}}>
             <View style={styles.container}>
             <ExpenseForm
                 defaultValues={selectedExpense}
@@ -66,7 +96,8 @@ export function ManageExpense({route, navigation}) {
                 </View>
             }
             </View>
-        </KeyBoardAvoidingContainer>
+        </ScrollView>
+        // </KeyBoardAvoidingContainer>
     );
 }
 

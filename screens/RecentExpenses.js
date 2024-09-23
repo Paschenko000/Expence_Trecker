@@ -1,18 +1,48 @@
 import {ExpensesOutput} from "../components/ExpensesOutput/ExpensesOutput";
 import {ExpensesContext} from "../store/expenses-context";
 import {getDateMinusDays} from "../utils/date";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
+import {fetchExpenses} from "../utils/http";
+import {LoadingOverlay} from "../ui/LoadingOverlay";
+import {ErrorOverlay} from "../ui/ErrorOverlay";
 
 export function RecentExpenses() {
+    const [isFetching, setIsFetching] = useState(true);
+    const [errorState, setErrorState] = useState();
+
     const expensesCtx = useContext(ExpensesContext);
+
+    useEffect(() => {
+        async function getExpenses() {
+            setIsFetching(true);
+            try {
+                const expenses = await fetchExpenses();
+                expensesCtx.setExpenses(expenses);
+            } catch (error) {
+                setErrorState(error)
+            }
+            setIsFetching(false);
+        }
+        getExpenses().then();
+    }, []);
+
+    // TODO: change recent expenses from a week to month
     const recentExpenses = expensesCtx.expenses.filter((expense) => {
         const today = new Date();
         const dateWeekAgo = getDateMinusDays(today, 7);
 
         return expense.date > dateWeekAgo;
-    })
+    });
+
+    if (isFetching) {
+        return <LoadingOverlay/>
+    }
+
+    if (errorState && !isFetching) {
+        return <ErrorOverlay message={errorState} />
+    }
 
     return (
-        <ExpensesOutput expensesPeriod="Last 7 days" expenses={recentExpenses} fallbackText="No expenses registered for the last 7 days" />
+        <ExpensesOutput expensesPeriod="Last month" expenses={recentExpenses} fallbackText="No expenses registered for the last month" />
     );
 }
