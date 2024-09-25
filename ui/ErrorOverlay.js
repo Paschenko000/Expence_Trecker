@@ -6,7 +6,6 @@ export function ErrorOverlay({message}) {
         <View style={styles.container}>
             <Text style={[styles.text, styles.title]}>An error occurred!</Text>
             <Text style={[styles.text, styles.message]}>{message}</Text>
-
         </View>
     );
 }

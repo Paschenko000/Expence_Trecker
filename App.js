@@ -12,6 +12,9 @@ import {StyleSheet} from "react-native";
 import {IconButton} from "./ui/IconButton";
 import {ExpensesContext, ExpensesContextProvider} from "./store/expenses-context";
 import {CategoryExpenses} from "./screens/CategoryExpenses";
+import {useEffect, useState} from "react";
+import {WelcomeScreen} from "./screens/WelcomeScreen";
+import {getItemFor, storeData} from "./utils/storage";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -65,7 +68,23 @@ function ExpensesOverview() {
 }
 
 export default function App() {
-  return (
+    const [hasLaunched, setHasLaunched] = useState(false);
+    const HAS_LAUNCHED = "HAS_LAUNCHED";
+
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const hasLaunched = await getItemFor(HAS_LAUNCHED);
+    //         if (hasLaunched) {
+    //             setHasLaunched(true);
+    //         } else {
+    //             await storeData(HAS_LAUNCHED, "true");
+    //         }
+    //     }
+    //
+    //     getData().catch((error) => {console.log(error)});
+    // }, []);
+
+    return (
       <>
         <StatusBar style="light" />
           <ExpensesContextProvider>
@@ -81,18 +100,28 @@ export default function App() {
                   },
 
               }}>
-                <Stack.Screen
-                    name="Expensesoverview"
-                    component={ExpensesOverview}
-                    options={{headerShown: false} }/>
-                <Stack.Screen
+                  {hasLaunched ?
+                  <Stack.Screen
+                      name="ExpensesOverview"
+                      component={ExpensesOverview}
+                      options={{headerShown: false} }
+                  />
+                  :
+                  <Stack.Screen
+                  name="WelcomeScreen"
+                  component={WelcomeScreen}
+                  options={{headerShown: false}}
+                  />
+                  }
+
+                  <Stack.Screen
                     name="ManageExpense"
                     component={ManageExpense}
                     options={{
                         headerBackTitle: "Back"
                     }}
-                />
-                <Stack.Screen
+                  />
+                  <Stack.Screen
                     name="CategoryExpenses"
                     component={CategoryExpenses}
                     options={{
@@ -104,7 +133,7 @@ export default function App() {
                         //     onPress={() => navigation.navigate("ManageExpense")}
                         // />
                     }}
-                />
+                  />
 
               </Stack.Navigator>
             </NavigationContainer>
