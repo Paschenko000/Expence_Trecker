@@ -1,9 +1,14 @@
+import {Platform} from 'react-native';
+
+const isIOS = () => {
+    return Platform.OS === 'ios';
+};
+
 export const GlobalStyles = {
     colors : {
         black: "#000000",
         gray: "#1C1C1D",
         lightGray: "#242424",
-        grayGradient: "linear-gradient(to right, #1C1C1D, #242424)",
         error: "#6e2f2f",
         accent: "#BAFC4F",
         white: "#ffffff",
@@ -23,6 +28,11 @@ export const GlobalStyles = {
         pink: "#D08FDB",
         purple: "#A78FE8",
         darkPurple: "#7e5fd9",
+    },
+    fonts: {
+        normal: isIOS() ? 'Outfit-Regular' : 'OutfitRegular',
+        medium: isIOS() ? 'Outfit-Medium' : 'OutfitMedium',
+        bold: isIOS() ? 'Outfit-Bold' : 'OutfitBold',
+        extraBold: isIOS() ? 'Outfit-ExtraBold' : 'OutfitExtraBold',
     }
-
 }

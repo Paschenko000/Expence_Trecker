@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
         margin: 4,
     },
     category: {
+        fontFamily: 'Outfit-ExtraBold',
         fontSize: 14,
-        fontWeight: "bold",
         minHeight: 33,
     },
     pressed: {

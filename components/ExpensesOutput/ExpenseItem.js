@@ -3,6 +3,7 @@ import {GlobalStyles} from "../../constants/styles";
 import {getFormattedDate} from "../../utils/date";
 import {useNavigation} from "@react-navigation/native";
 import {ExpensesCategories} from "../../constants/expensesCategories";
+import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 
 export function ExpenseItem({id, description, amount, date, category}) {
     const navigation = useNavigation();
@@ -13,12 +14,14 @@ export function ExpenseItem({id, description, amount, date, category}) {
     return (
         <Pressable onPress={expensePressHandler} style={({pressed}) => pressed && styles.pressed}>
             <View style={styles.expenseItem}>
-                <View >
+                <GrayLinearGradient styles={{height: 70, borderRadius: 10}}/>
+                <View style={styles.textContainer}>
+                    <Text style={[styles.amount, {color: ExpensesCategories[category - 1].color}]}>{ExpensesCategories[category - 1].name}</Text>
                     <Text style={[styles.textBase, {paddingBottom: 2}]}>{description}</Text>
-                    <Text style={styles.textBase}>{getFormattedDate(date)}</Text>
                 </View>
-                <View>
-                    <Text style={[styles.amount, {color: ExpensesCategories[category].color}]}>{amount.toFixed(2)}$</Text>
+                <View style={styles.amountContainer}>
+                    <Text style={[styles.amount, {color: ExpensesCategories[category - 1].color}]}>{amount.toFixed(2)}$</Text>
+                    <Text style={styles.textBase}>{getFormattedDate(date)}</Text>
                 </View>
             </View>
         </Pressable>
@@ -31,19 +34,28 @@ const styles = StyleSheet.create({
     },
     expenseItem: {
         padding: 12,
-        backgroundColor: GlobalStyles.colors.gray,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        borderRadius: 10,
         marginBottom: 8,
+        height: 70,
+    },
+    textContainer: {
+        gap: 4,
+        alignItems: "start",
+    },
+    amountContainer: {
+        gap: 4,
+        alignItems: "flex-end",
     },
     textBase: {
+        fontFamily: 'Outfit-Regular',
         fontSize: 16,
         color: GlobalStyles.colors.white,
         alignItems: "flex-start",
     },
     amount: {
+        fontFamily: 'Outfit-Bold',
         fontSize: 18,
         fontWeight: "bold",
         color: GlobalStyles.colors.accent,

@@ -77,28 +77,30 @@ const styles = StyleSheet.create({
         gap: 30,
     },
     heading: {
+        fontFamily: 'Outfit-ExtraBold',
         fontSize: 24,
         color: GlobalStyles.colors.accent,
         textAlign: "center",
-        fontWeight: "bold",
     },
     paragraph: {
+        fontFamily: 'Outfit-Regular',
         fontSize: 20,
         color: GlobalStyles.colors.white,
         textAlign: "center",
     },
     about: {
+        fontFamily: 'Outfit-Regular',
         fontSize: 16,
         color: GlobalStyles.colors.white,
     },
     link: {
+        fontFamily: 'Outfit-Bold',
         fontSize: 16,
         color: GlobalStyles.colors.accent,
         fontWeight: "bold",
     },
     currencyContainer: {
         gap: 20,
-        // alignItems: "center"
         justifyContent: "center"
     },
     aboutContainer: {
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
     },
     button: {
         flexDirection: "row",
-        gap: 10,
+        gap: 5,
         alignItems: "center",
         justifyContent: "flex-end",
     },
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
         opacity: 0.75,
     },
     buttonText: {
+        fontFamily: 'Outfit-Regular',
         fontSize: 16,
         color: GlobalStyles.colors.accent,
     }

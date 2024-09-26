@@ -19,10 +19,24 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.expense.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/OutfitBold.ttf",
+            "./assets/fonts/OutfitExtraBold.ttf",
+            "./assets/fonts/OutfitMedium.ttf",
+            "./assets/fonts/OutfitRegular.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }

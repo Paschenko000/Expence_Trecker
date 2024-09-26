@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import {Currencies} from "../constants/currencies";
 import {GlobalStyles} from "../constants/styles";
 import {LinearGradient} from "expo-linear-gradient";
+import {GrayLinearGradient} from "./GrayLinearGradient";
 
 export function Select ({ selectedCurrency, setSelectedCurrency }) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -29,11 +30,9 @@ export function Select ({ selectedCurrency, setSelectedCurrency }) {
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(false)}
             >
-                <LinearGradient
-                    // Background Linear Gradient
-                    colors={[GlobalStyles.colors.lightGray, GlobalStyles.colors.gray]}
-                    style={{position: 'absolute', left: 0, bottom: 0, height: 370, right: 0, borderRadius: 20}}
-                />
+                <GrayLinearGradient styles={{
+                    height: 370, borderRadius: 20
+                }}/>
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
                         <Text style={styles.modalTitle}>Select Currency</Text>
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
     selectedText: {
         color: GlobalStyles.colors.black,
         fontSize: 16,
-        fontWeight: "bold",
+        fontFamily: 'Outfit-Medium',
     },
     modalOverlay: {
         flex: 1,
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
         color: GlobalStyles.colors.white,
         fontSize: 20,
         marginBottom: 15,
-        fontWeight: 'bold',
+        fontFamily: 'Outfit-Bold',
     },
     currencyOption: {
         padding: 15,
@@ -102,6 +101,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     currencyText: {
+        fontFamily: 'Outfit-Medium',
         fontSize: 16,
         color: GlobalStyles.colors.white
     },
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     closeText: {
+        fontFamily: 'Outfit-Regular',
         fontSize: 16,
         color: GlobalStyles.colors.accent,
     },

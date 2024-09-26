@@ -26,6 +26,9 @@ function ExpensesOverview() {
               backgroundColor: GlobalStyles.colors.gray,
               shadowColor: "transparent",
           },
+          headerTitleStyle: {
+              fontFamily: 'Outfit-Medium',
+          },
           headerRight: () => <IconButton
               icon="add"
               size={30}
@@ -42,6 +45,9 @@ function ExpensesOverview() {
           tabBarBackground: () => (
               <BlurView intensity={80} tint="dark" style={StyleSheet.absoluteFill}/>
           ),
+          tabBarLabelStyle: {
+              fontFamily: 'Outfit-Medium',
+          }
       })}>
         <BottomTabs.Screen
             name="AllExpenses"
@@ -96,6 +102,7 @@ export default function App() {
                   },
                   headerTintColor: GlobalStyles.colors.accent,
                   headerTitleStyle: {
+                      fontFamily: 'Outfit-Medium',
                       color: GlobalStyles.colors.white
                   },
 
@@ -104,20 +111,22 @@ export default function App() {
                   <Stack.Screen
                     name="WelcomeScreen"
                     component={WelcomeScreen}
-                    options={{headerShown: false}}
+                    options={{headerShown: false, headerTitleStyle: {
+                            fontFamily: 'Outfit-Medium'}}}
                   />
                   }
                     <Stack.Screen
                         name="ExpensesOverview"
                         component={ExpensesOverview}
-                        options={{headerShown: false} }
+                        options={{headerShown: false}}
                     />
 
                   <Stack.Screen
                     name="ManageExpense"
                     component={ManageExpense}
                     options={{
-                        headerBackTitle: "Back"
+                        headerBackTitle: "Back",
+                        headerBackTitleStyle: {fontFamily: 'Outfit-Medium'}
                     }}
                   />
                   <Stack.Screen
@@ -125,6 +134,7 @@ export default function App() {
                     component={CategoryExpenses}
                     options={{
                         headerBackTitle: "Back",
+                        headerBackTitleStyle: {fontFamily: 'Outfit-Medium'}
                         // headerRight: () => <IconButton
                         //     icon="add"
                         //     size={30}

@@ -141,9 +141,9 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     title: {
-        fontSize: 20,
+        fontFamily: 'Outfit-Bold',
+        fontSize: 22,
         color:  GlobalStyles.colors.white,
-        fontWeight: "bold",
         marginBottom: 20,
     },
     inputsRow: {
@@ -167,9 +167,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     errorText: {
+        fontFamily: 'Outfit-Regular',
         textAlign: "center",
         color: GlobalStyles.colors.red,
         margin: 8,
-        fontSize: 16
+        fontSize: 16,
     },
 })

@@ -3,6 +3,7 @@ import {GlobalStyles} from "../../constants/styles";
 import {StyleSheet} from "react-native";
 import {ExpenseItem} from "./ExpenseItem";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
+import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 
 function renderExpense(itemData) {
     return (
@@ -20,13 +21,14 @@ export function ExpensesOutput({expenses, expensesPeriod, fallbackText}) {
     return (
         <View style={[styles.expensesContainer]}>
             <View style={styles.summaryContainer}>
+                <GrayLinearGradient styles={{height: 70, borderRadius: 10}}/>
                 <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
                 <Text style={styles.sum}>{expensesSum.toFixed(2)}$</Text>
             </View>
 
             {expenses.length > 0 ? (
                 <FlatList
-                    contentContainerStyle={{ margin: 4}}
+                    contentContainerStyle={{marginHorizontal: 4}}
                     data={expenses}
                     renderItem={renderExpense}
                     keyExtractor={(item) => item.id}
@@ -45,28 +47,31 @@ const styles = StyleSheet.create({
         backgroundColor: GlobalStyles.colors.black,
         padding: 10,
         flex: 1,
+        gap: 8,
         flexDirection: "column",
     },
     summaryContainer: {
-        backgroundColor: GlobalStyles.colors.gray,
-        borderRadius: 10,
+        height: 70,
         paddingHorizontal: 15,
         paddingVertical: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        margin: 4,
+        marginHorizontal: 4,
+        marginTop: 4,
     },
     summaryPeriod: {
-        fontSize: 16,
+        fontFamily: 'Outfit-Medium',
+        fontSize: 18,
         color: GlobalStyles.colors.white,
     },
     sum: {
+        fontFamily: 'Outfit-ExtraBold',
         fontSize: 18,
-        fontWeight: "bold",
         color: GlobalStyles.colors.accent,
     },
     fallbackText: {
+        fontFamily: 'Outfit-Regular',
         color: GlobalStyles.colors.accent,
         fontSize: 18,
         textAlign: "center",

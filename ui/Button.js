@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
         backgroundColor: "transparent",
     },
     buttonText: {
+        fontFamily: 'Outfit-Regular',
         fontSize: 16,
         color: GlobalStyles.colors.black,
         textAlign: "center",
-        fontWeight: "500"
     },
     pressed: {
         opacity: 0.75,

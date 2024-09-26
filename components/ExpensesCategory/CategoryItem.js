@@ -2,6 +2,7 @@ import {Pressable, StyleSheet, Text, View} from "react-native";
 import {GlobalStyles} from "../../constants/styles";
 import {ExpensesCategories} from "../../constants/expensesCategories";
 import {useNavigation} from "@react-navigation/native";
+import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 
 export function CategoryItem({expenses}) {
     const navigation = useNavigation();
@@ -19,10 +20,9 @@ export function CategoryItem({expenses}) {
         <View style={styles.container}>
         <Pressable onPress={categoryPressHandler}>
             <View style={styles.expenseCategory}>
-                <View style={styles.items}>
-                    <Text style={[styles.textBase, {paddingBottom: 4}]}>{category.name}</Text>
-                    <Text style={[styles.amount, {color: category.color}]}>{categorySum.toFixed(2)}$</Text>
-                </View>
+                <GrayLinearGradient styles={{minHeight: 95, borderRadius: 10}}/>
+                <Text style={[styles.textBase, {paddingBottom: 4}]}>{category.name}</Text>
+                <Text style={[styles.amount, {color: category.color}]}>{categorySum.toFixed(2)}$</Text>
             </View>
         </Pressable>
         </View>
@@ -35,24 +35,21 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        margin: 4,
-    },
-    items: {
-        minHeight: 65,
+        marginBottom: 8,
+        marginHorizontal: 4,
     },
     expenseCategory: {
         padding: 15,
-        backgroundColor: GlobalStyles.colors.gray,
-        borderRadius: 10,
-
+        minHeight: 95,
     },
     textBase: {
+        fontFamily: 'Outfit-Regular',
         fontSize: 16,
         color: GlobalStyles.colors.white,
         alignItems: "flex-start",
     },
     amount: {
+        fontFamily: 'Outfit-Bold',
         fontSize: 18,
-        fontWeight: "bold",
     }
 })

@@ -27,12 +27,14 @@ const styles = StyleSheet.create({
         marginHorizontal: 4
     },
     label: {
+        fontFamily: 'Outfit-Regular',
         fontSize: 16,
         color: GlobalStyles.colors.white,
         marginBottom: 7,
         marginLeft: 15,
     },
     input: {
+        fontFamily: 'Outfit-Regular',
         padding: 15,
         borderRadius: 10,
         backgroundColor: GlobalStyles.colors.gray,

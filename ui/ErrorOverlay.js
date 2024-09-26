@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     title: {
+        fontFamily: 'Outfit-Bold',
         fontSize: 18,
-        fontWeight: "bold",
     },
     message: {
         fontSize: 16,

@@ -4,6 +4,7 @@ import {ExpenseItem} from "../ExpensesOutput/ExpenseItem";
 import {CategoryItem} from "./CategoryItem";
 import {GlobalStyles} from "../../constants/styles";
 import {ExpensesCategories} from "../../constants/expensesCategories";
+import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 
 function renderExpense(itemData) {
     return (
@@ -30,6 +31,7 @@ export function ExpensesCategory({expenses, expensesPeriod, fallbackText}) {
     return (
         <View style={[styles.expensesContainer]}>
             <View style={styles.summaryContainer}>
+                <GrayLinearGradient styles={{borderRadius: 10, height: 70}}/>
                 <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
                 <Text style={styles.sum}>{expensesSum.toFixed(2)}$</Text>
             </View>
@@ -52,30 +54,33 @@ export function ExpensesCategory({expenses, expensesPeriod, fallbackText}) {
 const styles = StyleSheet.create({
     expensesContainer: {
         backgroundColor: GlobalStyles.colors.black,
+        gap: 8,
         padding: 10,
         flex: 1,
         flexDirection: "column",
     },
     summaryContainer: {
-        backgroundColor: GlobalStyles.colors.gray,
-        borderRadius: 10,
+        height: 70,
         paddingHorizontal: 15,
         paddingVertical: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        margin: 4,
+        marginHorizontal: 4,
+        marginTop: 4,
     },
     summaryPeriod: {
-        fontSize: 16,
+        fontFamily: 'Outfit-Medium',
+        fontSize: 18,
         color: GlobalStyles.colors.white,
     },
     sum: {
         fontSize: 18,
-        fontWeight: "bold",
+        fontFamily: 'Outfit-ExtraBold',
         color: GlobalStyles.colors.accent,
     },
     fallbackText: {
+        fontFamily: 'Outfit-Regular',
         color: GlobalStyles.colors.accent,
         fontSize: 18,
         textAlign: "center",
