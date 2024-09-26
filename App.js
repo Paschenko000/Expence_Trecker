@@ -100,19 +100,18 @@ export default function App() {
                   },
 
               }}>
-                  {hasLaunched ?
+                  {!hasLaunched &&
                   <Stack.Screen
-                      name="ExpensesOverview"
-                      component={ExpensesOverview}
-                      options={{headerShown: false} }
-                  />
-                  :
-                  <Stack.Screen
-                  name="WelcomeScreen"
-                  component={WelcomeScreen}
-                  options={{headerShown: false}}
+                    name="WelcomeScreen"
+                    component={WelcomeScreen}
+                    options={{headerShown: false}}
                   />
                   }
+                    <Stack.Screen
+                        name="ExpensesOverview"
+                        component={ExpensesOverview}
+                        options={{headerShown: false} }
+                    />
 
                   <Stack.Screen
                     name="ManageExpense"

@@ -1,8 +1,9 @@
 export const GlobalStyles = {
     colors : {
         black: "#000000",
-        gray: "#1C1B1D",
-        lightGray: "#282828",
+        gray: "#1C1C1D",
+        lightGray: "#242424",
+        grayGradient: "linear-gradient(to right, #1C1C1D, #242424)",
         error: "#6e2f2f",
         accent: "#BAFC4F",
         white: "#ffffff",
