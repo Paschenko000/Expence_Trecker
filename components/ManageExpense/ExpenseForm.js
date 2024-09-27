@@ -7,7 +7,7 @@ import {CategoryBtn} from "../../ui/CategoryBtn";
 import {useState} from "react";
 import {Button} from "../../ui/Button";
 
-export function ExpenseForm({onCancel, onSubmit, isEditing, defaultValues}) {
+export function ExpenseForm({currency, onCancel, onSubmit, isEditing, defaultValues}) {
     const [inputs, setInputs] = useState({
         amount: {
             value: defaultValues ? defaultValues.amount.toString() : '',
@@ -95,7 +95,7 @@ export function ExpenseForm({onCancel, onSubmit, isEditing, defaultValues}) {
 
             <Text style={styles.title}>Type Your Expense</Text>
             <View style={styles.inputsRow}>
-                <Input label="Amount" invalid={!inputs.amount.isValid} style={styles.rowInput} textInputConfig={{
+                <Input label={"Amount (" + currency + ")" } invalid={!inputs.amount.isValid} style={styles.rowInput} textInputConfig={{
                     keyboardType: 'decimal-pad',
                     onChangeText: inputChangeHandler.bind(this, 'amount'),
                     value: inputs.amount.value,

@@ -1,6 +1,7 @@
 import {Text, TextInput, View} from "react-native";
 import {StyleSheet} from "react-native";
 import {GlobalStyles} from "../../constants/styles";
+import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 
 export function Input({label, textInputConfig, style, invalid}) {
     const inputStyles = [styles.input];
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Outfit-Regular',
         padding: 15,
         borderRadius: 10,
+        minHeight: 50,
         backgroundColor: GlobalStyles.colors.gray,
         fontSize: 18,
         color: GlobalStyles.colors.white

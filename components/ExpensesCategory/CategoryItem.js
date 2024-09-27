@@ -4,10 +4,10 @@ import {ExpensesCategories} from "../../constants/expensesCategories";
 import {useNavigation} from "@react-navigation/native";
 import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 
-export function CategoryItem({expenses}) {
+export function CategoryItem({expenses, currency}) {
     const navigation = useNavigation();
     function categoryPressHandler() {
-        navigation.navigate('CategoryExpenses', {categoryId: expenses[0].category});
+        navigation.navigate('CategoryExpenses', {categoryId: expenses[0].category, currency: currency});
     }
 
     const category = ExpensesCategories[expenses[0].category - 1];
@@ -22,7 +22,7 @@ export function CategoryItem({expenses}) {
             <View style={styles.expenseCategory}>
                 <GrayLinearGradient styles={{minHeight: 95, borderRadius: 10}}/>
                 <Text style={[styles.textBase, {paddingBottom: 4}]}>{category.name}</Text>
-                <Text style={[styles.amount, {color: category.color}]}>{categorySum.toFixed(2)}$</Text>
+                <Text style={[styles.amount, {color: category.color}]}>{categorySum.toFixed(2)}{currency}</Text>
             </View>
         </Pressable>
         </View>

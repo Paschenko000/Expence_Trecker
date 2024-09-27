@@ -5,10 +5,12 @@ import {useContext, useEffect, useState} from "react";
 import {fetchExpenses} from "../utils/http";
 import {LoadingOverlay} from "../ui/LoadingOverlay";
 import {ErrorOverlay} from "../ui/ErrorOverlay";
+import {getItem} from "../utils/storage";
 
 export function RecentExpenses() {
     const [isFetching, setIsFetching] = useState(true);
     const [errorState, setErrorState] = useState();
+    const [currency, setCurrency] = useState();
 
     const expensesCtx = useContext(ExpensesContext);
 
@@ -18,6 +20,7 @@ export function RecentExpenses() {
             try {
                 const expenses = await fetchExpenses();
                 expensesCtx.setExpenses(expenses);
+                setCurrency(await getItem('CURRENCY'));
             } catch (error) {
                 setErrorState(error)
             }
@@ -43,6 +46,6 @@ export function RecentExpenses() {
     }
 
     return (
-        <ExpensesOutput expensesPeriod="Last month" expenses={recentExpenses} fallbackText="No expenses registered for the last month" />
+        <ExpensesOutput currency={currency && currency.sign} expensesPeriod="Last month" expenses={recentExpenses} fallbackText="No expenses registered for the last month" />
     );
 }

@@ -16,7 +16,7 @@ export function Button({children, onPress, mode, style, color}) {
 
 const styles = StyleSheet.create({
     button: {
-        borderRadius: 5,
+        borderRadius: 50,
         padding: 8,
     },
     flat: {

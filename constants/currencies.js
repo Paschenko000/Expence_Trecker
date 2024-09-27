@@ -1,7 +1,7 @@
 export const Currencies = [
-    { code: 'USD', label: 'US Dollar' },
-    { code: 'EUR', label: 'Euro' },
-    { code: 'GBP', label: 'British Pound' },
-    { code: 'PLN', label: 'Polish Złoty' },
-    { code: 'UAH', label: 'Ukrainian Hryvnia' },
+    { code: 'USD', label: 'US Dollar', sign: '$' },
+    { code: 'EUR', label: 'Euro', sign: '€' },
+    { code: 'GBP', label: 'British Pound', sign: '£' },
+    { code: 'PLN', label: 'Polish Złoty', sign: 'zł' },
+    { code: 'UAH', label: 'Ukrainian Hryvnia', sign: '₴' },
 ]

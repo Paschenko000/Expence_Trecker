@@ -1,21 +1,19 @@
 import {SafeAreaView, Text, StyleSheet, View, Linking, Pressable, TouchableOpacity} from "react-native";
 import {GlobalStyles} from "../constants/styles";
-import {Picker} from "@react-native-picker/picker";
 import {useNavigation} from "@react-navigation/native";
-import {Currencies} from "../constants/currencies";
 import {useState} from "react";
 import {Select} from "../ui/Select";
-import {Button} from "../ui/Button";
-import {LinearGradient} from "expo-linear-gradient";
 import {Ionicons} from "@expo/vector-icons";
-import {storeData} from "../utils/storage";
+import {getItem, storeData} from "../utils/storage";
+import {Currencies} from "../constants/currencies";
 
 export function WelcomeScreen() {
     const [selectedCurrency, setSelectedCurrency] = useState('USD');
     const navigation = useNavigation();
     const CURRENCY = 'CURRENCY';
     const handleCurrencySelect = async () => {
-        await storeData(CURRENCY, selectedCurrency);
+        const currency = Currencies.find((cur) => cur.code === selectedCurrency);
+        await storeData(CURRENCY, currency);
         navigation.navigate('ExpensesOverview');
     };
 

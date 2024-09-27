@@ -5,25 +5,26 @@ import {ExpenseItem} from "./ExpenseItem";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
 import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 
-function renderExpense(itemData) {
-    return (
-        <ExpenseItem {...itemData.item} />
-    );
-}
 
-export function ExpensesOutput({expenses, expensesPeriod, fallbackText}) {
+export function ExpensesOutput({currency, expenses, expensesPeriod, fallbackText}) {
     // const bottomPadding = useBottomTabBarHeight();
 
     const expensesSum = expenses.reduce((sum, expense) => {
         return sum + expense.amount;
     }, 0);
 
+    function renderExpense(itemData) {
+        return (
+            <ExpenseItem currency={currency} {...itemData.item} />
+        );
+    }
+
     return (
         <View style={[styles.expensesContainer]}>
             <View style={styles.summaryContainer}>
                 <GrayLinearGradient styles={{height: 70, borderRadius: 10}}/>
                 <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
-                <Text style={styles.sum}>{expensesSum.toFixed(2)}$</Text>
+                <Text style={styles.sum}>{expensesSum.toFixed(2)}{currency}</Text>
             </View>
 
             {expenses.length > 0 ? (

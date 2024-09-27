@@ -1,9 +1,3 @@
-import {Platform} from 'react-native';
-
-const isIOS = () => {
-    return Platform.OS === 'ios';
-};
-
 export const GlobalStyles = {
     colors : {
         black: "#000000",
@@ -28,11 +22,5 @@ export const GlobalStyles = {
         pink: "#D08FDB",
         purple: "#A78FE8",
         darkPurple: "#7e5fd9",
-    },
-    fonts: {
-        normal: isIOS() ? 'Outfit-Regular' : 'OutfitRegular',
-        medium: isIOS() ? 'Outfit-Medium' : 'OutfitMedium',
-        bold: isIOS() ? 'Outfit-Bold' : 'OutfitBold',
-        extraBold: isIOS() ? 'Outfit-ExtraBold' : 'OutfitExtraBold',
     }
 }

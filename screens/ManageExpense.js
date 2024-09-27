@@ -9,10 +9,12 @@ import {KeyBoardAvoidingContainer} from "../components/KeybosrdAvodingContainer/
 import {deleteExpense, storeExpense, updateExpense} from "../utils/http";
 import {LoadingOverlay} from "../ui/LoadingOverlay";
 import {ErrorOverlay} from "../ui/ErrorOverlay";
+import {getItem} from "../utils/storage";
 
 export function ManageExpense({route, navigation}) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errorState, setErrorState] = useState();
+    const [currency, setCurrency] = useState();
 
     const expensesCtx = useContext(ExpensesContext)
 
@@ -25,7 +27,14 @@ export function ManageExpense({route, navigation}) {
         navigation.setOptions({
             title: isEditing ? "Edit Expense" : "Add Expense"
         });
+
+        async function getCurrency() {
+            setCurrency(await getItem("CURRENCY"));
+        }
+        getCurrency().then();
     }, [navigation, isEditing]);
+
+
 
     async function deleteExpenseHandler() {
         setIsSubmitting(true);
@@ -79,6 +88,7 @@ export function ManageExpense({route, navigation}) {
         <ScrollView style={{backgroundColor: GlobalStyles.colors.black}}>
             <View style={styles.container}>
             <ExpenseForm
+                currency={currency && currency.code}
                 defaultValues={selectedExpense}
                 isEditing={isEditing}
                 onCancel={cancelHandler}

@@ -7,6 +7,7 @@ export function CategoryExpenses({route, navigation}) {
     const expensesCtx = useContext(ExpensesContext);
 
     const categoryId = route.params?.categoryId;
+    const currency = route.params?.currency;
     const expenses = expensesCtx.expenses.filter(expense => expense.category === categoryId);
 
     useLayoutEffect(() => {
@@ -16,6 +17,6 @@ export function CategoryExpenses({route, navigation}) {
     }, [navigation, categoryId]);
 
     return (
-        <ExpensesOutput expensesPeriod="Total" expenses={expenses} fallbackText="No registered expenses found"/>
+        <ExpensesOutput currency={currency} expensesPeriod="Total" expenses={expenses} fallbackText="No registered expenses found"/>
     );
 }

@@ -10,7 +10,6 @@
   "dependencies": {
     "@expo/metro-runtime": "~3.2.3",
     "@react-native-async-storage/async-storage": "^2.0.0",
-    "@react-native-picker/picker": "^2.8.1",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
@@ -25,8 +24,7 @@
     "react-native-screens": "^3.34.0",
     "react-native-web": "~0.19.10",
     "expo-linear-gradient": "~13.0.2",
-    "expo-font": "~12.0.10",
-    "expo-splash-screen": "~0.27.6"
+    "expo-font": "~12.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

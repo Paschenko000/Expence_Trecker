@@ -14,7 +14,8 @@ import {ExpensesContext, ExpensesContextProvider} from "./store/expenses-context
 import {CategoryExpenses} from "./screens/CategoryExpenses";
 import {useEffect, useState} from "react";
 import {WelcomeScreen} from "./screens/WelcomeScreen";
-import {getItemFor, storeData} from "./utils/storage";
+import {getItem, storeData} from "./utils/storage";
+import {ExpensesCategories} from "./constants/expensesCategories";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -76,19 +77,26 @@ function ExpensesOverview() {
 export default function App() {
     const [hasLaunched, setHasLaunched] = useState(false);
     const HAS_LAUNCHED = "HAS_LAUNCHED";
+    const CATEGORIES = "CATEGORIES";
 
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         const hasLaunched = await getItemFor(HAS_LAUNCHED);
-    //         if (hasLaunched) {
-    //             setHasLaunched(true);
-    //         } else {
-    //             await storeData(HAS_LAUNCHED, "true");
-    //         }
-    //     }
-    //
-    //     getData().catch((error) => {console.log(error)});
-    // }, []);
+    // TODO: Fix WelcomeScreen so it wouldn't be visible on app every app reload.
+    useEffect(() => {
+        const getData = async () => {
+            const hasLaunched = await getItem(HAS_LAUNCHED);
+            if (hasLaunched) {
+                setHasLaunched(true);
+            } else {
+                await storeData(HAS_LAUNCHED, true);
+            }
+            const category = await getItem(CATEGORIES);
+
+            if (!category) {
+                await storeData(CATEGORIES, ExpensesCategories);
+            }
+        }
+
+        getData().catch((error) => {console.log(error)});
+    }, []);
 
     return (
       <>

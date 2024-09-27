@@ -1,18 +1,12 @@
 import {FlatList, StyleSheet, Text, View} from "react-native";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
-import {ExpenseItem} from "../ExpensesOutput/ExpenseItem";
 import {CategoryItem} from "./CategoryItem";
 import {GlobalStyles} from "../../constants/styles";
 import {ExpensesCategories} from "../../constants/expensesCategories";
 import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 
-function renderExpense(itemData) {
-    return (
-        <CategoryItem expenses={itemData.item} />
-    );
-}
 
-export function ExpensesCategory({expenses, expensesPeriod, fallbackText}) {
+export function ExpensesCategory({currency, expenses, expensesPeriod, fallbackText}) {
     const bottomPadding = useBottomTabBarHeight();
 
     const expensesSum = expenses.reduce((sum, expense) => {
@@ -28,12 +22,18 @@ export function ExpensesCategory({expenses, expensesPeriod, fallbackText}) {
         }
     }
 
+    function renderExpense(itemData) {
+        return (
+            <CategoryItem currency={currency} expenses={itemData.item} />
+        );
+    }
+
     return (
         <View style={[styles.expensesContainer]}>
             <View style={styles.summaryContainer}>
                 <GrayLinearGradient styles={{borderRadius: 10, height: 70}}/>
                 <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
-                <Text style={styles.sum}>{expensesSum.toFixed(2)}$</Text>
+                <Text style={styles.sum}>{expensesSum.toFixed(2)}{currency}</Text>
             </View>
 
             {expenses.length > 0 ? (
@@ -41,6 +41,7 @@ export function ExpensesCategory({expenses, expensesPeriod, fallbackText}) {
                     contentContainerStyle={{paddingBottom: bottomPadding}}
                     data={categoryExpenses}
                     renderItem={renderExpense}
+
                     keyExtractor={(item) => item.id}
                     numColumns={2}
                 />

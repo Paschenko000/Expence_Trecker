@@ -1,5 +1,6 @@
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import {GlobalStyles} from "../constants/styles";
+import {GrayLinearGradient} from "./GrayLinearGradient";
 
 
 export function CategoryBtn({id, color, name, onPress, selectedCategory}) {
@@ -8,6 +9,8 @@ export function CategoryBtn({id, color, name, onPress, selectedCategory}) {
         <View style={styles.button}>
             <Pressable onPress={() => onPress(id)} style={({pressed}) => pressed && styles.pressed}>
                 <View style={[styles.container, id === selectedCategory && styles.selectedCategory]}>
+                    {id !== selectedCategory && <GrayLinearGradient styles={{height: 60, borderRadius: 10,}}/>}
+
                     <Text style={[styles.category, {color}]}>{name}</Text>
                 </View>
             </Pressable>
@@ -23,17 +26,17 @@ const styles = StyleSheet.create({
     category: {
         fontFamily: 'Outfit-ExtraBold',
         fontSize: 14,
-        minHeight: 33,
     },
     pressed: {
         opacity: 0.75,
     },
     container: {
-        borderRadius: 10,
+        height: 60,
         padding: 15,
-        backgroundColor: GlobalStyles.colors.gray,
     },
     selectedCategory: {
+        opacity: 0.60,
+        borderRadius: 10,
         backgroundColor: GlobalStyles.colors.lightGray,
     }
 });

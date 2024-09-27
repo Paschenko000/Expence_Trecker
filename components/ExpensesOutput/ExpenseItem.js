@@ -5,7 +5,7 @@ import {useNavigation} from "@react-navigation/native";
 import {ExpensesCategories} from "../../constants/expensesCategories";
 import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 
-export function ExpenseItem({id, description, amount, date, category}) {
+export function ExpenseItem({currency, id, description, amount, date, category}) {
     const navigation = useNavigation();
     function expensePressHandler() {
         navigation.navigate('ManageExpense', {expenseId: id});
@@ -20,7 +20,7 @@ export function ExpenseItem({id, description, amount, date, category}) {
                     <Text style={[styles.textBase, {paddingBottom: 2}]}>{description}</Text>
                 </View>
                 <View style={styles.amountContainer}>
-                    <Text style={[styles.amount, {color: ExpensesCategories[category - 1].color}]}>{amount.toFixed(2)}$</Text>
+                    <Text style={[styles.amount, {color: ExpensesCategories[category - 1].color}]}>{amount.toFixed(2)}{currency}</Text>
                     <Text style={styles.textBase}>{getFormattedDate(date)}</Text>
                 </View>
             </View>
