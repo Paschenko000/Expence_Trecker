@@ -6,8 +6,11 @@ import {ExpensesCategories} from "../../constants/expensesCategories";
 import {CategoryBtn} from "../../ui/CategoryBtn";
 import {useState} from "react";
 import {Button} from "../../ui/Button";
+import {IconButton} from "../../ui/IconButton";
+import {useNavigation} from "@react-navigation/native";
 
 export function ExpenseForm({currency, onCancel, onSubmit, isEditing, defaultValues}) {
+    const navigation = useNavigation();
     const [inputs, setInputs] = useState({
         amount: {
             value: defaultValues ? defaultValues.amount.toString() : '',
@@ -84,6 +87,10 @@ export function ExpenseForm({currency, onCancel, onSubmit, isEditing, defaultVal
         );
     }
 
+    function handleNavigate() {
+        navigation.navigate('AddCategory');
+    }
+
     const formIsInvalid =
         !inputs.amount.isValid ||
         !inputs.date.isValid ||
@@ -117,7 +124,10 @@ export function ExpenseForm({currency, onCancel, onSubmit, isEditing, defaultVal
                 <Text style={styles.errorText}>Invalid input values - please check your entered data!</Text>
             }
             <View style={styles.categoriesContainer}>
-                <Text style={styles.title}>Select Category</Text>
+                <View style={styles.addCategoryContainer}>
+                    <Text style={styles.title}>Select Category</Text>
+                    <IconButton icon="add" color={GlobalStyles.colors.accent} size={30} onPress={handleNavigate}/>
+                </View>
                 <FlatList
                     data={ExpensesCategories}
                     renderItem={renderCategory}
@@ -173,4 +183,8 @@ const styles = StyleSheet.create({
         margin: 8,
         fontSize: 16,
     },
+    addCategoryContainer: {
+        flexDirection: "row",
+        gap: 10,
+    }
 })

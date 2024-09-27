@@ -3,7 +3,7 @@ import {ExpensesCategories} from "../constants/expensesCategories";
 import {ExpensesOutput} from "../components/ExpensesOutput/ExpensesOutput";
 import {ExpensesContext} from "../store/expenses-context";
 
-export function CategoryExpenses({route, navigation}) {
+export function CategoryExpensesScreen({route, navigation}) {
     const expensesCtx = useContext(ExpensesContext);
 
     const categoryId = route.params?.categoryId;

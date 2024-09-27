@@ -11,11 +11,13 @@ import {BlurView} from "expo-blur";
 import {StyleSheet} from "react-native";
 import {IconButton} from "./ui/IconButton";
 import {ExpensesContext, ExpensesContextProvider} from "./store/expenses-context";
-import {CategoryExpenses} from "./screens/CategoryExpenses";
+import {CategoryExpensesScreen} from "./screens/CategoryExpensesScreen";
 import {useEffect, useState} from "react";
 import {WelcomeScreen} from "./screens/WelcomeScreen";
 import {getItem, storeData} from "./utils/storage";
 import {ExpensesCategories} from "./constants/expensesCategories";
+import {AddCategoryScreen} from "./screens/AddCategoryScreen";
+import {CategoryContextProvider} from "./store/category-context";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -102,58 +104,63 @@ export default function App() {
       <>
         <StatusBar style="light" />
           <ExpensesContextProvider>
-            <NavigationContainer>
-              <Stack.Navigator screenOptions={{
-                  headerStyle: {
-                      backgroundColor: GlobalStyles.colors.gray,
-                      shadowColor: "transparent",
-                  },
-                  headerTintColor: GlobalStyles.colors.accent,
-                  headerTitleStyle: {
-                      fontFamily: 'Outfit-Medium',
-                      color: GlobalStyles.colors.white
-                  },
+              <CategoryContextProvider>
+                  <NavigationContainer>
+                      <Stack.Navigator screenOptions={{
+                          headerStyle: {
+                              backgroundColor: GlobalStyles.colors.gray,
+                              shadowColor: "transparent",
+                          },
+                          headerTintColor: GlobalStyles.colors.accent,
+                          headerTitleStyle: {
+                              fontFamily: 'Outfit-Medium',
+                              color: GlobalStyles.colors.white
+                          },
 
-              }}>
-                  {!hasLaunched &&
-                  <Stack.Screen
-                    name="WelcomeScreen"
-                    component={WelcomeScreen}
-                    options={{headerShown: false, headerTitleStyle: {
-                            fontFamily: 'Outfit-Medium'}}}
-                  />
-                  }
-                    <Stack.Screen
-                        name="ExpensesOverview"
-                        component={ExpensesOverview}
-                        options={{headerShown: false}}
-                    />
+                      }}>
+                          {!hasLaunched &&
+                          <Stack.Screen
+                            name="WelcomeScreen"
+                            component={WelcomeScreen}
+                            options={{headerShown: false, headerTitleStyle: {
+                                    fontFamily: 'Outfit-Medium'}}}
+                          />
+                          }
+                            <Stack.Screen
+                                name="ExpensesOverview"
+                                component={ExpensesOverview}
+                                options={{headerShown: false}}
+                            />
 
-                  <Stack.Screen
-                    name="ManageExpense"
-                    component={ManageExpense}
-                    options={{
-                        headerBackTitle: "Back",
-                        headerBackTitleStyle: {fontFamily: 'Outfit-Medium'}
-                    }}
-                  />
-                  <Stack.Screen
-                    name="CategoryExpenses"
-                    component={CategoryExpenses}
-                    options={{
-                        headerBackTitle: "Back",
-                        headerBackTitleStyle: {fontFamily: 'Outfit-Medium'}
-                        // headerRight: () => <IconButton
-                        //     icon="add"
-                        //     size={30}
-                        //     color={GlobalStyles.colors.accent}
-                        //     onPress={() => navigation.navigate("ManageExpense")}
-                        // />
-                    }}
-                  />
+                          <Stack.Screen
+                            name="ManageExpense"
+                            component={ManageExpense}
+                            options={{
+                                headerBackTitle: "Back",
+                                headerBackTitleStyle: {fontFamily: 'Outfit-Medium'}
+                            }}
+                          />
+                          <Stack.Screen
+                            name="CategoryExpenses"
+                            component={CategoryExpensesScreen}
+                            options={{
+                                headerBackTitle: "Back",
+                                headerBackTitleStyle: {fontFamily: 'Outfit-Medium'}
+                            }}
+                          />
+                          <Stack.Screen
+                              name="AddCategory"
+                              component={AddCategoryScreen}
+                              options={{
+                                  headerTitle: "Add Category",
+                                  headerBackTitle: "Back",
+                                  headerBackTitleStyle: {fontFamily: 'Outfit-Medium'}
+                              }}
+                          />
 
-              </Stack.Navigator>
-            </NavigationContainer>
+                      </Stack.Navigator>
+                  </NavigationContainer>
+              </CategoryContextProvider>
           </ExpensesContextProvider>
       </>
 
