@@ -9,21 +9,15 @@ import {Text} from "react-native";
 export function AllExpenses() {
     const [errorState, setErrorState] = useState();
     const [currency, setCurrency] = useState();
-    // const [isFetching, setIsFetching] = useState(true);
     const expensesCtx = useContext(ExpensesContext);
 
     useEffect(() => {
-        async function getData() {
-            // setIsFetching(true);
-            try {
-                setCurrency(await getItem('CURRENCY'));
-            } catch (error) {
-                setErrorState(error);
-            }
-            // setIsFetching(false);
+        try {
+            setCurrency(getItem('CURRENCY'));
+        } catch (error) {
+            setErrorState(error);
         }
 
-        getData().then();
     }, []);
 
     useEffect(() => {
@@ -36,11 +30,7 @@ export function AllExpenses() {
     // }
     // console.log(expensesCtx.expenses, "expenses");
 
-
     return (
-        <Text></Text>
-    )
-    // return (
-    //     <ExpensesCategory currency={currency && currency.sign} expensesPeriod="Total" expenses={expensesCtx.expenses} fallbackText="No registered expenses found"/>
-    // );
+        <ExpensesCategory currency={currency && currency.sign} expensesPeriod="Total" expenses={expensesCtx.expenses} fallbackText="No registered expenses found"/>
+    );
 }

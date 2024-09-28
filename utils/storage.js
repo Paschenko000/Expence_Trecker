@@ -1,16 +1,17 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {MMKV} from "react-native-mmkv";
+const storage = new MMKV();
 
-export async function storeData(key, value) {
+export function storeData(key, value) {
     try {
-        await AsyncStorage.setItem(key, JSON.stringify(value));
+        storage.set(key, JSON.stringify(value));
     } catch (error) {
         console.log(error);
     }
 }
 
-export async function getItem(key) {
+export function getItem(key) {
     try {
-        const value = await AsyncStorage.getItem(key);
+        const value = storage.getString(key);
         if (value !== null) {
             return JSON.parse(value);
         }

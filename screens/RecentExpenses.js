@@ -6,23 +6,17 @@ import {ErrorOverlay} from "../ui/ErrorOverlay";
 import {getItem} from "../utils/storage";
 
 export function RecentExpenses() {
-    const [isFetching, setIsFetching] = useState(true);
     const [errorState, setErrorState] = useState();
     const [currency, setCurrency] = useState();
 
     const expensesCtx = useContext();
 
     useEffect(() => {
-        async function getExpenses() {
-            setIsFetching(true);
-            try {
-                setCurrency(await getItem('CURRENCY'));
-            } catch (error) {
-                setErrorState(error)
-            }
-            setIsFetching(false);
+        try {
+            setCurrency(getItem('CURRENCY'));
+        } catch (error) {
+            setErrorState(error)
         }
-        getExpenses().then();
     }, []);
 
     // TODO: change recent expenses from a week to month
@@ -33,11 +27,9 @@ export function RecentExpenses() {
         return expense.date > dateWeekAgo;
     });
 
-    if (isFetching) {
-        return <LoadingOverlay/>
-    }
 
-    if (errorState && !isFetching) {
+
+    if (errorState) {
         return <ErrorOverlay message={errorState} />
     }
 

@@ -25,11 +25,7 @@ export function ManageExpense({route, navigation}) {
         navigation.setOptions({
             title: isEditing ? "Edit Expense" : "Add Expense"
         });
-
-        async function getCurrency() {
-            setCurrency(await getItem("CURRENCY"));
-        }
-        getCurrency().then();
+            setCurrency(getItem("CURRENCY"));
     }, [navigation, isEditing]);
 
 

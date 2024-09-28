@@ -109,7 +109,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.expansetraking"
+    namespace 'com.expense.app'
     defaultConfig {
         applicationId 'com.expense.app'
         minSdkVersion rootProject.ext.minSdkVersion

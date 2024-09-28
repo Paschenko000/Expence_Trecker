@@ -1,7 +1,7 @@
 import {createContext, useEffect, useReducer} from "react";
 import {getItem, storeData} from "../utils/storage";
 import {LoadingOverlay} from "../ui/LoadingOverlay";
-import {ErrorOverlay} from "../ui/ErrorOverlay";
+
 
 export const ExpensesContext = createContext({
     expenses: [],
@@ -30,11 +30,11 @@ function expensesReducer(state, action) {
             const updatedItem = {...itemToUpdate, ...action.payload.data};
             const updatedExpenses = [...state];
             updatedExpenses[itemIToUpdate] = updatedItem;
-            await storeData("EXPENSES", updatedExpenses);
+            storeData("EXPENSES", updatedExpenses);
             return updatedExpenses;
         case "DELETE":
             const expenses = state.filter((expense) => expense.id !== action.payload);
-            await storeData("EXPENSES", expenses)
+            storeData("EXPENSES", expenses)
             return expenses;
         default:
             return state;
@@ -46,15 +46,13 @@ export function ExpensesContextProvider({children}) {
     const [expensesState, dispatch ] = useReducer(expensesReducer, null);
 
     useEffect(() => {
-        async function getData(){
-            const data = await getItem("EXPENSES");
-            if (data) {
-                dispatch({type: "SET", payload: data});
-            } else {
-                dispatch({type: "SET", payload: []});
-            }
+
+        const data = getItem("EXPENSES");
+        if (data) {
+            dispatch({type: "SET", payload: data});
+        } else {
+            dispatch({type: "SET", payload: []});
         }
-        getData()
 
     }, []);
 
