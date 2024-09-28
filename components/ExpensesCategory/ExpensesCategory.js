@@ -9,7 +9,7 @@ import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 export function ExpensesCategory({currency, expenses, expensesPeriod, fallbackText}) {
     const bottomPadding = useBottomTabBarHeight();
 
-    const expensesSum = expenses.reduce((sum, expense) => {
+    const expensesSum =  expenses.reduce((sum, expense) => {
         return sum + expense.amount;
     }, 0);
 
@@ -17,7 +17,7 @@ export function ExpensesCategory({currency, expenses, expensesPeriod, fallbackTe
 
     for (const {id} of ExpensesCategories) {
         const filteredExpenses = expenses.filter(expense => expense.category === id);
-        if (filteredExpenses.length > 0) {
+        if (filteredExpenses?.length > 0) {
             categoryExpenses.push(filteredExpenses);
         }
     }
@@ -30,21 +30,24 @@ export function ExpensesCategory({currency, expenses, expensesPeriod, fallbackTe
 
     return (
         <View style={[styles.expensesContainer]}>
-            <View style={styles.summaryContainer}>
-                <GrayLinearGradient styles={{borderRadius: 10, height: 70}}/>
-                <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
-                <Text style={styles.sum}>{expensesSum.toFixed(2)}{currency}</Text>
-            </View>
+
 
             {expenses.length > 0 ? (
-                <FlatList
-                    contentContainerStyle={{paddingBottom: bottomPadding}}
-                    data={categoryExpenses}
-                    renderItem={renderExpense}
+                <>
+                    <View style={styles.summaryContainer}>
+                        <GrayLinearGradient styles={{borderRadius: 10, height: 70}}/>
+                        <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
+                        <Text style={styles.sum}>{expensesSum.toFixed(2)}{currency}</Text>
+                    </View>
+                    <FlatList
+                        contentContainerStyle={{paddingBottom: bottomPadding}}
+                        data={categoryExpenses}
+                        renderItem={renderExpense}
 
-                    keyExtractor={(item) => item.id}
-                    numColumns={2}
-                />
+                        keyExtractor={(item) => item.id}
+                        numColumns={2}
+                    />
+                </>
             ) : (
                 <Text style={[styles.fallbackText, {paddingBottom: bottomPadding}]}>{fallbackText}</Text>
             )}

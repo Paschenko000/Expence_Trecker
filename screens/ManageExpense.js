@@ -5,8 +5,6 @@ import {StyleSheet} from "react-native";
 import {Button} from "../ui/Button";
 import {ExpensesContext} from "../store/expenses-context";
 import {ExpenseForm} from "../components/ManageExpense/ExpenseForm";
-import {KeyBoardAvoidingContainer} from "../components/KeybosrdAvodingContainer/KeyBoardAvoidingContainer";
-import {deleteExpense, storeExpense, updateExpense} from "../utils/http";
 import {LoadingOverlay} from "../ui/LoadingOverlay";
 import {ErrorOverlay} from "../ui/ErrorOverlay";
 import {getItem} from "../utils/storage";
@@ -16,7 +14,7 @@ export function ManageExpense({route, navigation}) {
     const [errorState, setErrorState] = useState();
     const [currency, setCurrency] = useState();
 
-    const expensesCtx = useContext(ExpensesContext)
+    const expensesCtx = useContext(ExpensesContext);
 
     const editedExpenseId = route.params?.expenseId;
     const isEditing = !!editedExpenseId;
@@ -40,7 +38,6 @@ export function ManageExpense({route, navigation}) {
         setIsSubmitting(true);
 
         try {
-            await deleteExpense(editedExpenseId);
             navigation.goBack();
             expensesCtx.deleteExpense(editedExpenseId);
         } catch (error) {
@@ -60,10 +57,9 @@ export function ManageExpense({route, navigation}) {
                 expensesCtx.updateExpense(
                     editedExpenseId, expenseData
                 );
-                await updateExpense(editedExpenseId, expenseData);
             } else {
-                const id = await storeExpense(expenseData);
-                expensesCtx.addExpense({...expenseData, id});
+
+                expensesCtx.addExpense({...expenseData});
             }
             navigation.goBack();
         } catch (error) {

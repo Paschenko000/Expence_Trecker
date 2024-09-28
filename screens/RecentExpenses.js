@@ -1,8 +1,6 @@
 import {ExpensesOutput} from "../components/ExpensesOutput/ExpensesOutput";
-import {ExpensesContext} from "../store/expenses-context";
 import {getDateMinusDays} from "../utils/date";
 import {useContext, useEffect, useState} from "react";
-import {fetchExpenses} from "../utils/http";
 import {LoadingOverlay} from "../ui/LoadingOverlay";
 import {ErrorOverlay} from "../ui/ErrorOverlay";
 import {getItem} from "../utils/storage";
@@ -12,14 +10,12 @@ export function RecentExpenses() {
     const [errorState, setErrorState] = useState();
     const [currency, setCurrency] = useState();
 
-    const expensesCtx = useContext(ExpensesContext);
+    const expensesCtx = useContext();
 
     useEffect(() => {
         async function getExpenses() {
             setIsFetching(true);
             try {
-                const expenses = await fetchExpenses();
-                expensesCtx.setExpenses(expenses);
                 setCurrency(await getItem('CURRENCY'));
             } catch (error) {
                 setErrorState(error)

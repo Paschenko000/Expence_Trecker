@@ -20,7 +20,7 @@ export function CategoryItem({expenses, currency}) {
         <View style={styles.container}>
         <Pressable onPress={categoryPressHandler}>
             <View style={styles.expenseCategory}>
-                <GrayLinearGradient styles={{minHeight: 95, borderRadius: 10}}/>
+                <GrayLinearGradient styles={{height: 100, borderRadius: 10}}/>
                 <Text style={[styles.textBase, {paddingBottom: 4}]}>{category.name}</Text>
                 <Text style={[styles.amount, {color: category.color}]}>{categorySum.toFixed(2)}{currency}</Text>
             </View>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     expenseCategory: {
         padding: 15,
-        minHeight: 95,
+        height: 100,
     },
     textBase: {
         fontFamily: 'Outfit-Regular',

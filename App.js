@@ -104,7 +104,7 @@ export default function App() {
       <>
         <StatusBar style="light" />
           <ExpensesContextProvider>
-              <CategoryContextProvider>
+              {/*<CategoryContextProvider>*/}
                   <NavigationContainer>
                       <Stack.Navigator screenOptions={{
                           headerStyle: {
@@ -160,7 +160,7 @@ export default function App() {
 
                       </Stack.Navigator>
                   </NavigationContainer>
-              </CategoryContextProvider>
+              {/*</CategoryContextProvider>*/}
           </ExpensesContextProvider>
       </>
 
