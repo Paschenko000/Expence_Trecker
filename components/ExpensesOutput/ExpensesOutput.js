@@ -20,7 +20,7 @@ export function ExpensesOutput({currency, expenses, expensesPeriod, fallbackText
     }
 
     return (
-        <View style={[styles.expensesContainer]}>
+        <View style={styles.expensesContainer}>
             <View style={styles.summaryContainer}>
                 <GrayLinearGradient styles={{height: 70, borderRadius: 10}}/>
                 <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
@@ -34,6 +34,7 @@ export function ExpensesOutput({currency, expenses, expensesPeriod, fallbackText
                     renderItem={renderExpense}
                     keyExtractor={(item) => item.id}
                 />
+
             ) : (
                 <Text style={[styles.fallbackText]}>{fallbackText}</Text>
             )}

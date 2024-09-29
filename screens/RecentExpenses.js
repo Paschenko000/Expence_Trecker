@@ -1,15 +1,15 @@
 import {ExpensesOutput} from "../components/ExpensesOutput/ExpensesOutput";
 import {getDateMinusDays} from "../utils/date";
 import {useContext, useEffect, useState} from "react";
-import {LoadingOverlay} from "../ui/LoadingOverlay";
 import {ErrorOverlay} from "../ui/ErrorOverlay";
 import {getItem} from "../utils/storage";
+import {ExpensesContext} from "../store/expenses-context";
 
 export function RecentExpenses() {
     const [errorState, setErrorState] = useState();
     const [currency, setCurrency] = useState();
 
-    const expensesCtx = useContext();
+    const expensesCtx = useContext(ExpensesContext);
 
     useEffect(() => {
         try {
@@ -20,12 +20,16 @@ export function RecentExpenses() {
     }, []);
 
     // TODO: change recent expenses from a week to month
+
     const recentExpenses = expensesCtx.expenses.filter((expense) => {
         const today = new Date();
-        const dateWeekAgo = getDateMinusDays(today, 7);
+        const currentDay = today.getDate();
+        const dateWeekAgo = getDateMinusDays(today, currentDay - 1);
 
-        return expense.date > dateWeekAgo;
+        return new Date(expense.date) > dateWeekAgo;
     });
+
+
 
 
 

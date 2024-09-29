@@ -20,11 +20,6 @@ export function AllExpenses() {
 
     }, []);
 
-    useEffect(() => {
-        console.log(expensesCtx, 'EXPENSES 111')
-    }, [expensesCtx])
-
-
     // if (isFetching) {
     //     return <LoadingOverlay/>
     // }
