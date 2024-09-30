@@ -12,8 +12,9 @@ export function ExpenseItem({currency, id, description, amount, date, category})
     }
 
     return (
+        <GrayLinearGradient styles={styles.container}>
         <Pressable onPress={expensePressHandler} style={({pressed}) => pressed && styles.pressed}>
-            <GrayLinearGradient styles={styles.expenseItem}>
+            <View style={styles.expenseItem}>
                 <View style={styles.textContainer}>
                     <Text style={[styles.amount, {color: ExpensesCategories[category - 1].color}]}>{ExpensesCategories[category - 1].name}</Text>
                     <Text style={[styles.textBase, {paddingBottom: 2}]}>{description}</Text>
@@ -22,22 +23,29 @@ export function ExpenseItem({currency, id, description, amount, date, category})
                     <Text style={[styles.amount, {color: ExpensesCategories[category - 1].color}]}>{amount.toFixed(2)}{currency}</Text>
                     <Text style={styles.textBase}>{getFormattedDate(date)}</Text>
                 </View>
-            </GrayLinearGradient>
+            </View>
         </Pressable>
+        </GrayLinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
     pressed: {
-        opacity: 0.75,
+        backgroundColor:GlobalStyles.colors.lightGray,
+        borderRadius: 8,
+
+    },
+    container: {
+        padding: 5,
+        borderRadius: 10,
+        marginBottom: 8,
     },
     expenseItem: {
-        padding: 12,
+        padding: 10,
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 8,
-        borderRadius: 10,
+        alignItems: "flex-start",
+
     },
     textContainer: {
         gap: 4,

@@ -1,8 +1,9 @@
 export const GlobalStyles = {
     colors : {
         black: "#000000",
-        gray: "#1C1C1D",
-        lightGray: "#242424",
+        darkGray: "#191919",
+        gray: "#232323",
+        lightGray: "#2c2c2c",
         error: "#6e2f2f",
         accent: "#BAFC4F",
         white: "#ffffff",

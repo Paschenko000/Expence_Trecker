@@ -6,22 +6,13 @@ import {GrayLinearGradient} from "./GrayLinearGradient";
 export function CategoryBtn({id, color, name, onPress, selectedCategory}) {
 
     return (
-        <View style={styles.button}>
+        <GrayLinearGradient styles={styles.button}>
             <Pressable onPress={() => onPress(id)} style={({pressed}) => pressed && styles.pressed}>
-                {id === selectedCategory ? (
-                    <View style={[styles.container, styles.selectedCategory]}>
-                        <Text style={[styles.category, {color}]}>{name}</Text>
-                    </View>
-
-                    ) : (
-                    <GrayLinearGradient styles={styles.container}>
-                        <Text style={[styles.category, {color}]}>{name}</Text>
-
-                    </GrayLinearGradient>
-                    )
-                }
+                <View style={[styles.container, id === selectedCategory && styles.selectedCategory]}>
+                    <Text style={[styles.category, {color}]}>{name}</Text>
+                </View>
             </Pressable>
-        </View>
+        </GrayLinearGradient>
     );
 }
 
@@ -29,6 +20,8 @@ const styles = StyleSheet.create({
     button: {
         flex: 1,
         margin: 4,
+        padding: 5,
+        borderRadius: 10,
     },
     category: {
         fontFamily: 'Outfit-ExtraBold',
@@ -38,12 +31,11 @@ const styles = StyleSheet.create({
         opacity: 0.75,
     },
     container: {
-        minHeight: 65,
-        padding: 15,
-        borderRadius: 10,
+        padding: 10,
+        minHeight: 55,
     },
     selectedCategory: {
-        opacity: 0.60,
         backgroundColor: GlobalStyles.colors.lightGray,
+        borderRadius: 8,
     }
 });

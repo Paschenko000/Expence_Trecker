@@ -17,30 +17,32 @@ export function CategoryItem({expenses, currency}) {
     }, 0);
 
     return (
-        <View style={styles.container}>
-        <Pressable onPress={categoryPressHandler}>
-            <GrayLinearGradient styles={styles.expenseCategory} >
+        <GrayLinearGradient styles={styles.container}>
+        <Pressable onPress={categoryPressHandler} style={({pressed}) => pressed && styles.pressed}>
+            <View style={styles.expenseCategory} >
                 <Text style={[styles.textBase, {paddingBottom: 4}]}>{category.name}</Text>
                 <Text style={[styles.amount, {color: category.color}]}>{categorySum.toFixed(2)}{currency}</Text>
-            </GrayLinearGradient>
+            </View>
         </Pressable>
-        </View>
+        </GrayLinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
     pressed: {
-        opacity: 0.75,
+        backgroundColor:GlobalStyles.colors.lightGray,
+        borderRadius: 8,
     },
     container: {
         flex: 1,
         marginBottom: 8,
         marginHorizontal: 4,
+        padding: 5,
+        borderRadius: 10,
     },
     expenseCategory: {
-        padding: 15,
-        borderRadius: 10,
         minHeight: 100,
+        padding: 10,
     },
     textBase: {
         fontFamily: 'Outfit-Regular',

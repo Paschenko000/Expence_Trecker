@@ -5,13 +5,21 @@ import {GlobalStyles} from "../../constants/styles";
 import {ExpensesCategories} from "../../constants/expensesCategories";
 import {formatDate} from "../../utils/date";
 import {ExpensesCategory} from "../ExpensesCategory/ExpensesCategory";
+import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
+import {useNavigation} from "@react-navigation/native";
 
 export function DailyExpense({expenses, day, currency}) {
+    const navigation = useNavigation();
+
     const expensesSum = expenses.reduce((sum, expense) => {
         return sum + expense.amount;
     }, 0);
 
     const date = formatDate(day);
+
+    function expensePressHandler(id) {
+        navigation.navigate('ManageExpense', {expenseId: id});
+    }
 
     return (
 
@@ -21,10 +29,9 @@ export function DailyExpense({expenses, day, currency}) {
                    <Text style={styles.sum}>{expensesSum + currency}</Text>
                </View>
 
-               <LinearGradient colors={[GlobalStyles.colors.lightGray, GlobalStyles.colors.gray]} style={{ borderRadius: 10,}}>
-               <View style={styles.expensesContainer}>
+               <GrayLinearGradient styles={styles.expensesContainer}>
                    {expenses.map((expense) => (
-                       <Pressable onPress={() => {}} key={expense.id} >
+                       <Pressable onPress={() => expensePressHandler(expense.id)} key={expense.id} style={({pressed}) => pressed && styles.pressed}>
                            <View style={styles.expenseButton}>
                                <View style={styles.textContainer}>
                                    <Text style={[styles.expenseCategory, {color: ExpensesCategories[expense.category - 1].color}]}>{ExpensesCategories[expense.category - 1].name}</Text>
@@ -34,8 +41,8 @@ export function DailyExpense({expenses, day, currency}) {
                            </View>
                        </Pressable>
                    ))}
-               </View>
-               </LinearGradient>
+               </GrayLinearGradient>
+
            </View>
 
     );
@@ -43,14 +50,15 @@ export function DailyExpense({expenses, day, currency}) {
 
 const styles = StyleSheet.create({
     pressed: {
-        opacity: 0.75,
+        backgroundColor:GlobalStyles.colors.lightGray,
+        borderRadius: 8,
     },
     container: {
         gap: 10,
         marginBottom: 20
     },
     headingContainer: {
-        paddingHorizontal: 12,
+        // paddingHorizontal: 12,
         flexDirection: "row",
         justifyContent: "space-between",
         gap: 20,
@@ -68,13 +76,16 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     expensesContainer : {
-        padding: 12,
-        gap: 15,
+        padding: 5,
+        gap: 10,
+        borderRadius: 10,
     },
     expenseButton: {
+        padding: 10,
         flexDirection: "row",
         justifyContent: "space-between",
         gap: 20,
+
     },
     expenseCategory: {
         fontSize: 16,
