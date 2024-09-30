@@ -8,11 +8,18 @@ export function CategoryBtn({id, color, name, onPress, selectedCategory}) {
     return (
         <View style={styles.button}>
             <Pressable onPress={() => onPress(id)} style={({pressed}) => pressed && styles.pressed}>
-                <View style={[styles.container, id === selectedCategory && styles.selectedCategory]}>
-                    {id !== selectedCategory && <GrayLinearGradient styles={{height: 60, borderRadius: 10,}}/>}
+                {id === selectedCategory ? (
+                    <View style={[styles.container, styles.selectedCategory]}>
+                        <Text style={[styles.category, {color}]}>{name}</Text>
+                    </View>
 
-                    <Text style={[styles.category, {color}]}>{name}</Text>
-                </View>
+                    ) : (
+                    <GrayLinearGradient styles={styles.container}>
+                        <Text style={[styles.category, {color}]}>{name}</Text>
+
+                    </GrayLinearGradient>
+                    )
+                }
             </Pressable>
         </View>
     );
@@ -31,12 +38,12 @@ const styles = StyleSheet.create({
         opacity: 0.75,
     },
     container: {
-        height: 60,
+        minHeight: 65,
         padding: 15,
+        borderRadius: 10,
     },
     selectedCategory: {
         opacity: 0.60,
-        borderRadius: 10,
         backgroundColor: GlobalStyles.colors.lightGray,
     }
 });

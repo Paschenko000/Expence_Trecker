@@ -34,13 +34,15 @@ export function ExpensesCategory({currency, expenses, expensesPeriod, fallbackTe
 
             {expenses.length > 0 ? (
                 <>
-                    <View style={styles.summaryContainer}>
-                        <GrayLinearGradient styles={{borderRadius: 10, height: 70}}/>
-                        <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
-                        <Text style={styles.sum}>{expensesSum.toFixed(2)}{currency}</Text>
+                    <View style={GlobalStyles.shadow}>
+                        <GrayLinearGradient styles={styles.summaryContainer}>
+                            <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
+                            <Text style={styles.sum}>{expensesSum.toFixed(2)}{currency}</Text>
+
+                        </GrayLinearGradient>
                     </View>
                     <FlatList
-                        contentContainerStyle={{paddingBottom: bottomPadding}}
+                        contentContainerStyle={{paddingBottom: bottomPadding, marginTop: 10}}
                         data={categoryExpenses}
                         renderItem={renderExpense}
 
@@ -58,13 +60,12 @@ export function ExpensesCategory({currency, expenses, expensesPeriod, fallbackTe
 const styles = StyleSheet.create({
     expensesContainer: {
         backgroundColor: GlobalStyles.colors.black,
-        gap: 8,
         padding: 10,
         flex: 1,
         flexDirection: "column",
     },
     summaryContainer: {
-        height: 70,
+        borderRadius: 10,
         paddingHorizontal: 15,
         paddingVertical: 20,
         flexDirection: 'row',

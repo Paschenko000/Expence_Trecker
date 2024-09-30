@@ -21,22 +21,23 @@ export function ExpensesOutput({currency, expenses, expensesPeriod, fallbackText
 
     return (
         <View style={styles.expensesContainer}>
-            <View style={styles.summaryContainer}>
-                <GrayLinearGradient styles={{height: 70, borderRadius: 10}}/>
-                <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
-                <Text style={styles.sum}>{expensesSum.toFixed(2)}{currency}</Text>
+            <View style={GlobalStyles.shadow}>
+                <GrayLinearGradient styles={styles.summaryContainer}>
+                    <Text style={styles.summaryPeriod}>{expensesPeriod}</Text>
+                    <Text style={styles.sum}>{expensesSum.toFixed(2)}{currency}</Text>
+                </GrayLinearGradient>
             </View>
 
             {expenses.length > 0 ? (
                 <FlatList
-                    contentContainerStyle={{marginHorizontal: 4}}
+                    contentContainerStyle={{marginHorizontal: 4, marginTop: 10}}
                     data={expenses}
                     renderItem={renderExpense}
                     keyExtractor={(item) => item.id}
                 />
 
             ) : (
-                <Text style={[styles.fallbackText]}>{fallbackText}</Text>
+                <Text style={styles.fallbackText}>{fallbackText}</Text>
             )}
 
 
@@ -49,11 +50,10 @@ const styles = StyleSheet.create({
         backgroundColor: GlobalStyles.colors.black,
         padding: 10,
         flex: 1,
-        gap: 8,
         flexDirection: "column",
     },
     summaryContainer: {
-        height: 70,
+        borderRadius: 10,
         paddingHorizontal: 15,
         paddingVertical: 20,
         flexDirection: 'row',

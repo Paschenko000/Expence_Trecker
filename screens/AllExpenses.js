@@ -20,11 +20,6 @@ export function AllExpenses() {
 
     }, []);
 
-    // if (isFetching) {
-    //     return <LoadingOverlay/>
-    // }
-    // console.log(expensesCtx.expenses, "expenses");
-
     return (
         <ExpensesCategory currency={currency && currency.sign} expensesPeriod="Total" expenses={expensesCtx.expenses} fallbackText="No registered expenses found"/>
     );

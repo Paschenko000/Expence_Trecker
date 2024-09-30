@@ -1,9 +1,11 @@
 import {ExpensesOutput} from "../components/ExpensesOutput/ExpensesOutput";
-import {getDateMinusDays} from "../utils/date";
+import {getDateMinusDays, groupExpensesByDays} from "../utils/date";
 import {useContext, useEffect, useState} from "react";
 import {ErrorOverlay} from "../ui/ErrorOverlay";
 import {getItem} from "../utils/storage";
 import {ExpensesContext} from "../store/expenses-context";
+import {RecentExpensesOutput} from "../components/RecentExpensesOutput/RecentExpensesOutput";
+import {View} from "react-native";
 
 export function RecentExpenses() {
     const [errorState, setErrorState] = useState();
@@ -19,25 +21,17 @@ export function RecentExpenses() {
         }
     }, []);
 
-    // TODO: change recent expenses from a week to month
+    const thisMonthExpenses = groupExpensesByDays(expensesCtx.expenses)
 
-    const recentExpenses = expensesCtx.expenses.filter((expense) => {
-        const today = new Date();
-        const currentDay = today.getDate();
-        const dateWeekAgo = getDateMinusDays(today, currentDay - 1);
-
-        return new Date(expense.date) > dateWeekAgo;
-    });
-
-
-
-
+    console.log(thisMonthExpenses)
 
     if (errorState) {
         return <ErrorOverlay message={errorState} />
     }
 
+
     return (
-        <ExpensesOutput currency={currency && currency.sign} expensesPeriod="Last month" expenses={recentExpenses} fallbackText="No expenses registered for the last month" />
+        <RecentExpensesOutput currency={currency && currency.sign} expenses={thisMonthExpenses} fallbackText="No expenses registered for the last month"/>
+    //     <ExpensesOutput currency={currency && currency.sign} expensesPeriod="Last month" expenses={recentExpenses} fallbackText="No expenses registered for the last month" />
     );
 }

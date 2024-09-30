@@ -22,5 +22,16 @@ export const GlobalStyles = {
         pink: "#D08FDB",
         purple: "#A78FE8",
         darkPurple: "#7e5fd9",
+    },
+    shadow: {
+        elevation: 10,
+        zIndex: 10,
+        shadowColor: "#000000",
+        shadowOffset: {
+
+            height: 10,
+        },
+        shadowOpacity: 0.80,
+        shadowRadius: 10,
     }
 }

@@ -1,11 +1,13 @@
 import {GlobalStyles} from "../constants/styles";
 import {LinearGradient} from "expo-linear-gradient";
 
-export function GrayLinearGradient({styles}) {
+export function GrayLinearGradient({styles, children}) {
     return (
         <LinearGradient
             colors={[GlobalStyles.colors.lightGray, GlobalStyles.colors.gray]}
-            style={[{position: 'absolute', left: 0, bottom: 0, right: 0}, styles]}
-        />
+            style={styles}
+        >
+            {children}
+        </LinearGradient>
     );
 }

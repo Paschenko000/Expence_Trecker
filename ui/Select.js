@@ -30,11 +30,8 @@ export function Select ({ selectedCurrency, setSelectedCurrency }) {
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(false)}
             >
-                <GrayLinearGradient styles={{
-                    height: 370, borderRadius: 20
-                }}/>
                 <View style={styles.modalOverlay}>
-                    <View style={styles.modalContent}>
+                    <GrayLinearGradient styles={styles.modalContent}>
                         <Text style={styles.modalTitle}>Select Currency</Text>
                         {Currencies.map((currency) => (
                             <>
@@ -53,8 +50,9 @@ export function Select ({ selectedCurrency, setSelectedCurrency }) {
                         >
                             <Text style={styles.closeText}>Close</Text>
                         </TouchableOpacity>
-                    </View>
+                    </GrayLinearGradient>
                 </View>
+
             </Modal>
         </View>
     );
@@ -88,6 +86,7 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 15,
         alignItems: 'center',
+        borderRadius: 20,
     },
     modalTitle: {
         color: GlobalStyles.colors.white,

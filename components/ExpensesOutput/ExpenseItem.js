@@ -13,8 +13,7 @@ export function ExpenseItem({currency, id, description, amount, date, category})
 
     return (
         <Pressable onPress={expensePressHandler} style={({pressed}) => pressed && styles.pressed}>
-            <View style={styles.expenseItem}>
-                <GrayLinearGradient styles={{height: 70, borderRadius: 10}}/>
+            <GrayLinearGradient styles={styles.expenseItem}>
                 <View style={styles.textContainer}>
                     <Text style={[styles.amount, {color: ExpensesCategories[category - 1].color}]}>{ExpensesCategories[category - 1].name}</Text>
                     <Text style={[styles.textBase, {paddingBottom: 2}]}>{description}</Text>
@@ -23,7 +22,7 @@ export function ExpenseItem({currency, id, description, amount, date, category})
                     <Text style={[styles.amount, {color: ExpensesCategories[category - 1].color}]}>{amount.toFixed(2)}{currency}</Text>
                     <Text style={styles.textBase}>{getFormattedDate(date)}</Text>
                 </View>
-            </View>
+            </GrayLinearGradient>
         </Pressable>
     );
 }
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         marginBottom: 8,
-        height: 70,
+        borderRadius: 10,
     },
     textContainer: {
         gap: 4,
@@ -57,7 +56,6 @@ const styles = StyleSheet.create({
     amount: {
         fontFamily: 'Outfit-Bold',
         fontSize: 18,
-        fontWeight: "bold",
         color: GlobalStyles.colors.accent,
     }
 })
