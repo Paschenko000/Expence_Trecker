@@ -17,8 +17,8 @@ export function DailyExpense({expenses, day, currency}) {
 
     const date = formatDate(day);
 
-    function expensePressHandler(id) {
-        navigation.navigate('ManageExpense', {expenseId: id});
+    function expensePressHandler(expense) {
+        navigation.navigate('ManageExpense', {expenseId: expense});
     }
 
     return (
@@ -31,13 +31,13 @@ export function DailyExpense({expenses, day, currency}) {
 
                <GrayLinearGradient styles={styles.expensesContainer}>
                    {expenses.map((expense) => (
-                       <Pressable onPress={() => expensePressHandler(expense.id)} key={expense.id} style={({pressed}) => pressed && styles.pressed}>
+                       <Pressable onPress={() => expensePressHandler(expense)} key={expense.id} style={({pressed}) => pressed && styles.pressed}>
                            <View style={styles.expenseButton}>
                                <View style={styles.textContainer}>
-                                   <Text style={[styles.expenseCategory, {color: ExpensesCategories[expense.category - 1].color}]}>{ExpensesCategories[expense.category - 1].name}</Text>
+                                   <Text style={[styles.expenseCategory, {color: expense.category.color}]}>{expense.category.name}</Text>
                                    <Text style={styles.description}>{expense.description}</Text>
                                </View>
-                               <Text style={[styles.expenseCategory, {color: ExpensesCategories[expense.category - 1].color}]}>{expense.amount + currency}</Text>
+                               <Text style={[styles.expenseCategory, {color: expense.category.color}]}>{expense.amount + currency}</Text>
                            </View>
                        </Pressable>
                    ))}

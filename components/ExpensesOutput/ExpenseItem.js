@@ -8,7 +8,7 @@ import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 export function ExpenseItem({currency, id, description, amount, date, category}) {
     const navigation = useNavigation();
     function expensePressHandler() {
-        navigation.navigate('ManageExpense', {expenseId: id});
+        navigation.navigate('ManageExpense', {expense: {id, description, amount, date, category}});
     }
 
     return (
@@ -16,11 +16,11 @@ export function ExpenseItem({currency, id, description, amount, date, category})
         <Pressable onPress={expensePressHandler} style={({pressed}) => pressed && styles.pressed}>
             <View style={styles.expenseItem}>
                 <View style={styles.textContainer}>
-                    <Text style={[styles.amount, {color: ExpensesCategories[category - 1].color}]}>{ExpensesCategories[category - 1].name}</Text>
+                    <Text style={[styles.amount, {color: category.color}]}>{category.name}</Text>
                     <Text style={[styles.textBase, {paddingBottom: 2}]}>{description}</Text>
                 </View>
                 <View style={styles.amountContainer}>
-                    <Text style={[styles.amount, {color: ExpensesCategories[category - 1].color}]}>{amount.toFixed(2)}{currency}</Text>
+                    <Text style={[styles.amount, {color: category.color}]}>{amount.toFixed(2)}{currency}</Text>
                     <Text style={styles.textBase}>{getFormattedDate(date)}</Text>
                 </View>
             </View>

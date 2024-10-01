@@ -6,17 +6,18 @@ import {ExpensesContext} from "../store/expenses-context";
 export function CategoryExpensesScreen({route, navigation}) {
     const expensesCtx = useContext(ExpensesContext);
 
-    const categoryId = route.params?.categoryId;
+    const expenses = route.params?.expenses;
     const currency = route.params?.currency;
-    const expenses = expensesCtx.expenses.filter(expense => expense.category === categoryId);
+    const expensesCat = expensesCtx.expenses.filter(expense => expense.category.id === expenses[0].category.id);
+
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            title: ExpensesCategories[categoryId - 1].name
+            title: expenses[0].category.name,
         });
-    }, [navigation, categoryId]);
+    }, [navigation, expenses]);
 
     return (
-        <ExpensesOutput currency={currency} expensesPeriod="Total" expenses={expenses} fallbackText="No registered expenses found"/>
+        <ExpensesOutput currency={currency} expensesPeriod="Total" expenses={expensesCat} fallbackText="No registered expenses found"/>
     );
 }

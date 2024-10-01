@@ -16,10 +16,10 @@ export function ManageExpense({route, navigation}) {
 
     const expensesCtx = useContext(ExpensesContext);
 
-    const editedExpenseId = route.params?.expenseId;
-    const isEditing = !!editedExpenseId;
+    const expense = route.params?.expense;
+    const isEditing = !!expense;
 
-    const selectedExpense = expensesCtx.expenses.find(expense => expense.id === editedExpenseId);
+    // const selectedExpense = expensesCtx.expenses.find(expense => expense.id === editedExpenseId);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -35,7 +35,7 @@ export function ManageExpense({route, navigation}) {
 
         try {
             navigation.goBack();
-            expensesCtx.deleteExpense(editedExpenseId);
+            expensesCtx.deleteExpense(expense.id);
         } catch (error) {
             setErrorState(error);
             setIsSubmitting(false)
@@ -51,7 +51,7 @@ export function ManageExpense({route, navigation}) {
         try {
             if (isEditing) {
                 expensesCtx.updateExpense(
-                    editedExpenseId, expenseData
+                    expense.id, expenseData
                 );
             } else {
 
@@ -76,12 +76,11 @@ export function ManageExpense({route, navigation}) {
     }
 
     return (
-        // <KeyBoardAvoidingContainer>
         <ScrollView style={{backgroundColor: GlobalStyles.colors.black}}>
             <View style={styles.container}>
             <ExpenseForm
                 currency={currency && currency.code}
-                defaultValues={selectedExpense}
+                defaultValues={expense}
                 isEditing={isEditing}
                 onCancel={cancelHandler}
                 onSubmit={submitHandler}
@@ -99,7 +98,6 @@ export function ManageExpense({route, navigation}) {
             }
             </View>
         </ScrollView>
-        // </KeyBoardAvoidingContainer>
     );
 }
 

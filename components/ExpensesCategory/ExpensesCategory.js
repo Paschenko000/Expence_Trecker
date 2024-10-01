@@ -16,7 +16,7 @@ export function ExpensesCategory({currency, expenses, expensesPeriod, fallbackTe
     const categoryExpenses = [];
 
     for (const {id} of ExpensesCategories) {
-        const filteredExpenses = expenses.filter(expense => expense.category === id);
+        const filteredExpenses = expenses.filter(expense => expense.category.id === id);
         if (filteredExpenses?.length > 0) {
             categoryExpenses.push(filteredExpenses);
         }

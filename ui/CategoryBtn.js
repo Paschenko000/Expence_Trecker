@@ -2,13 +2,12 @@ import {Pressable, StyleSheet, Text, View} from "react-native";
 import {GlobalStyles} from "../constants/styles";
 import {GrayLinearGradient} from "./GrayLinearGradient";
 
-
 export function CategoryBtn({id, color, name, onPress, selectedCategory}) {
 
     return (
         <GrayLinearGradient styles={styles.button}>
-            <Pressable onPress={() => onPress(id)} style={({pressed}) => pressed && styles.pressed}>
-                <View style={[styles.container, id === selectedCategory && styles.selectedCategory]}>
+            <Pressable onPress={() => onPress({id, color, name})} style={({pressed}) => pressed && styles.pressed}>
+                <View style={[styles.container, (selectedCategory && id === selectedCategory.id) && styles.selectedCategory]}>
                     <Text style={[styles.category, {color}]}>{name}</Text>
                 </View>
             </Pressable>

@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
         minHeight: 50,
         backgroundColor: GlobalStyles.colors.gray,
         fontSize: 18,
-        color: GlobalStyles.colors.white
+        color: GlobalStyles.colors.white,
+
     },
     inputMultiline :{
         textAlignVertical: "top",

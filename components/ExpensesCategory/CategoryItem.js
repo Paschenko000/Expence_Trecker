@@ -6,11 +6,10 @@ import {GrayLinearGradient} from "../../ui/GrayLinearGradient";
 
 export function CategoryItem({expenses, currency}) {
     const navigation = useNavigation();
-    function categoryPressHandler() {
-        navigation.navigate('CategoryExpenses', {categoryId: expenses[0].category, currency: currency});
-    }
 
-    const category = ExpensesCategories[expenses[0].category - 1];
+    function categoryPressHandler() {
+        navigation.navigate('CategoryExpenses', {expenses: expenses});
+    }
 
     const categorySum = expenses.reduce((sum, expense) => {
         return sum + expense.amount;
@@ -20,8 +19,8 @@ export function CategoryItem({expenses, currency}) {
         <GrayLinearGradient styles={styles.container}>
         <Pressable onPress={categoryPressHandler} style={({pressed}) => pressed && styles.pressed}>
             <View style={styles.expenseCategory} >
-                <Text style={[styles.textBase, {paddingBottom: 4}]}>{category.name}</Text>
-                <Text style={[styles.amount, {color: category.color}]}>{categorySum.toFixed(2)}{currency}</Text>
+                <Text style={[styles.textBase, {paddingBottom: 4}]}>{expenses[0].category.name}</Text>
+                <Text style={[styles.amount, {color: expenses[0].category.color}]}>{categorySum.toFixed(2)}{currency}</Text>
             </View>
         </Pressable>
         </GrayLinearGradient>

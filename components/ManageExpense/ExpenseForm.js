@@ -25,16 +25,16 @@ export function ExpenseForm({currency, onCancel, onSubmit, isEditing, defaultVal
             isValid: true,
         },
         category: {
-            value: defaultValues ? defaultValues.category: null,
+            value: defaultValues ? {...defaultValues.category} : null,
             isValid: true
         }
     });
 
-    function categorySelectionHandler(id) {
+    function categorySelectionHandler(category) {
         setInputs((curInputs) => {
             return {
                 ...curInputs,
-                category: {value: id, isValid: true},
+                category: {value: {id: category.id, name: category.name, color: category.color}, isValid: true},
             }
         });
     }
@@ -44,13 +44,13 @@ export function ExpenseForm({currency, onCancel, onSubmit, isEditing, defaultVal
             amount: +inputs.amount.value,
             date: new Date(inputs.date.value),
             description: inputs.description.value,
-            category: inputs.category.value,
+            category: {id: inputs.category.value.id, name: inputs.category.value.name, color: inputs.category.value.color},
         };
 
         const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
         const dateIsValid = expenseData.date.toString() !== 'Invalid Date';
         const descriptionIsValid = expenseData.description.trim().length > 0;
-        const categoryIsValid = expenseData.category > 0;
+        const categoryIsValid = expenseData.category;
 
         if (!amountIsValid || !dateIsValid || !descriptionIsValid || !categoryIsValid) {
             setInputs((curInputs) => {
@@ -58,10 +58,9 @@ export function ExpenseForm({currency, onCancel, onSubmit, isEditing, defaultVal
                     amount: {value: curInputs.amount.value, isValid: amountIsValid},
                     description: {value: curInputs.description.value, isValid: descriptionIsValid},
                     date: {value: curInputs.date.value, isValid: dateIsValid},
-                    category: {value: curInputs.category.value, isValid: categoryIsValid},
+                    category: {value: {id: curInputs.category.value.id, name: curInputs.category.value.id, color: curInputs.category.value.color}, isValid: categoryIsValid},
                 }
             })
-            // Alert.alert("Invalid input", "Please check your input values");
             return;
         }
 
@@ -77,7 +76,10 @@ export function ExpenseForm({currency, onCancel, onSubmit, isEditing, defaultVal
         });
     }
 
+    console.log(inputs.category.value)
+
     function renderCategory(itemData) {
+
         return (
             <CategoryBtn
                 {...itemData.item}
@@ -131,7 +133,7 @@ export function ExpenseForm({currency, onCancel, onSubmit, isEditing, defaultVal
                 <FlatList
                     data={ExpensesCategories}
                     renderItem={renderCategory}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.name}
                     numColumns={2}
                     scrollEnabled={false}
                 />
